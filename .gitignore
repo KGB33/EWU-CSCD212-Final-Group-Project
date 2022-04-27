@@ -30,3 +30,6 @@ out/
 
 # Ignore Gradle build output directory
 build
+
+# un-ignore gradle wrapper jars
+!gradle-wrapper.jar
