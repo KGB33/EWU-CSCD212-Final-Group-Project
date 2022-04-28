@@ -1,4 +1,4 @@
-package chess212.classes;
+package chess.classes;
 
 import java.text.ParseException;
 
@@ -7,8 +7,8 @@ import java.text.ParseException;
  *
  * <p>https://en.wikipedia.org/wiki/Algebraic_notation_(chess)
  */
-public class Move {
-  // TODO: Consider changing rank, file, and movedPiece to Enums.
+public final class Move {
+  // Consider changing rank, file, and movedPiece to Enums.
   private int rank;
   private char file;
   private char movedPiece;
@@ -24,7 +24,6 @@ public class Move {
 
   /** Default constructor is private, use Move.parse(String notation) to generate a move. */
   private Move() {}
-  ;
 
   /**
    * Parses a Move from an algebraic notation string.
@@ -34,7 +33,7 @@ public class Move {
    * @throws IllegalArgumentException if notation is null.
    * @throws ParseException if the given notation cannot be parsed
    */
-  public static Move parse(String notation) {
+  public static Move parse(final String notation) {
     return new Move();
   }
 

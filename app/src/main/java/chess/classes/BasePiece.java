@@ -1,11 +1,10 @@
-package chess212.classes;
+package chess.classes;
 
-import chess212.enums.Color;
+import chess.enums.Color;
 
+/** The parent class for all chess pieces. */
 public abstract class BasePiece {
   // A unicode chess icon i.e. "♔", "♟️"", etc.
-  protected static char whiteIcon;
-  protected static char blackIcon;
   protected char icon;
   protected Color color;
 

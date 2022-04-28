@@ -28,7 +28,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'chess212.Main'
+    mainClass = 'chess.Main'
 }
 
 tasks.named('test') {
