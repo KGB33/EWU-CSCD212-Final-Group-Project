@@ -1,6 +1,7 @@
 package chess.classes;
 
 import chess.enums.Color;
+import java.util.ArrayList;
 
 /** Represents a chessboard. */
 public class Board {
@@ -37,6 +38,7 @@ public class Board {
     // TODO: this whole method
     Color currentPlayer = this.turnNumber % 2 == 0 ? Color.WHITE : Color.BLACK;
     // Find the piece that's being be moved
+    ArrayList<BasePiece> pieces = this.getPieces(m.getMovedPiece(), currentPlayer);
 
     // verify that the move is valid
     // piece.isValidMove(fromFile, fromRank, toFile, toRank);
@@ -47,6 +49,13 @@ public class Board {
     // Move the piece
     this.turnNumber++;
     return true;
+  }
+
+  public ArrayList<BasePiece> getPieces(char piece, Color color) {
+    ArrayList<BasePiece> pieces = new ArrayList<>();
+    // loop through the this.board array to find pieces that have the above
+    // attributes.
+    return pieces;
   }
 
   /**
