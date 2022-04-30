@@ -1,6 +1,8 @@
 package chess.classes;
 
 import java.text.ParseException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents the algebraic notation of a move.
@@ -28,13 +30,21 @@ public final class Move {
   private boolean isQueenSideCastle;
   private boolean isKingSideCastle;
 
+  /** All possible characters in algebraic notation. */
+  private static final Set<Character> validCharacters =
+      // file     +  ranks     + pieces  + other
+      ("abcdefgh" + "12345678" + "KQBNR" + "x0-+#")
+          .chars()
+          .mapToObj(e -> (char) e)
+          .collect(Collectors.toSet());
+
   /** Default constructor is private, use Move.parse(String notation) to generate a move. */
   private Move() {}
 
   /**
    * Parses a Move from an algebraic notation string.
    *
-   * @param notation the algebraic notation for the given move.
+   * @param notationIn the algebraic notation for the given move.
    * @return a Move object representing the notation.
    * @throws IllegalArgumentException if notation is null.
    * @throws ParseException if the given notation cannot be parsed
@@ -43,6 +53,12 @@ public final class Move {
     String notation = notationIn;
     if (notation == null || notation.isEmpty()) {
       throw new IllegalArgumentException("Notation cannot be null or empty.");
+    }
+
+    // Ensure all characters in the notation are valid.
+    if (!Move.validCharacters.containsAll(
+        notation.chars().mapToObj(e -> (char) e).collect(Collectors.toSet()))) {
+      throw new ParseException(notation, 0);
     }
     Move m = new Move();
     // Special cases
