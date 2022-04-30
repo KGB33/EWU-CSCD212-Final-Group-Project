@@ -8,6 +8,8 @@ public abstract class BasePiece {
   protected char icon;
   protected Color color;
 
+  public abstract boolean isValidMove(char fromFile, char fromRank, char toFile, char toRank);
+
   public String toString() {
     return String.valueOf(this.icon);
   }
