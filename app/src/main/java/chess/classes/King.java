@@ -25,4 +25,19 @@ public class King extends BasePiece {
       this.icon = King.whiteIcon;
     }
   }
+
+  /** A king can move one square in any direction. */
+  @Override
+  public boolean isValidMove(char fromFile, char fromRank, char toFile, char toRank) {
+    if (fromFile == toFile && fromRank == toRank) {
+      return false;
+    }
+    if (Math.abs(fromFile - toFile) > 1) {
+      return false;
+    }
+    if (Math.abs(fromRank - toRank) > 1) {
+      return false;
+    }
+    return true;
+  }
 }
