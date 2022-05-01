@@ -25,7 +25,8 @@ public class KingTest {
 
   @ParameterizedTest(name = "King isValidMove {0}{1} to {2}{3} (valid)")
   @CsvSource({
-    "b,2,a,1", "b,2,a,2", "b,2,a,3", "b,2,b,1", "b,2,b,3", "b,2,c,1", "b,2,c,2", "b,2,c,3"
+    "b,2,a,1", "b,2,a,2", "b,2,a,3", "b,2,b,1", "b,2,b,3", "b,2,c,1", "b,2,c,2", "b,2,c,3",
+    "e,1,e,2"
   })
   void testIsValidMove(char fromFile, char fromRank, char toFile, char toRank) {
     King k = new King(Color.WHITE);
@@ -33,9 +34,7 @@ public class KingTest {
   }
 
   @ParameterizedTest(name = "King isValidMove {0}{1} to {2}{3} (invalid)")
-  @CsvSource({
-    "b,2,a,4", "b,2,h,2", "b,2,h,4",
-  })
+  @CsvSource({"b,2,a,4", "b,2,h,2", "b,2,h,4"})
   void testIsInValidMove(char fromFile, char fromRank, char toFile, char toRank) {
     King k = new King(Color.WHITE);
     assertFalse(k.isValidMove(fromFile, fromRank, toFile, toRank));

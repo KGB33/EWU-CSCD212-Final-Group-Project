@@ -1,13 +1,33 @@
 package chess.classes;
 
 import chess.enums.Color;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Represents a chessboard. */
 public class Board {
   private BasePiece[][] board;
 
   private int turnNumber;
+
+  private static final Map<Character, Integer> rank;
+  private static final Map<Character, Integer> file;
+
+  // Called a static initialization block
+  // https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+  static {
+    char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
+    char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    Map<Character, Integer> rMap = new HashMap<>();
+    Map<Character, Integer> fMap = new HashMap<>();
+    for (Integer i = 0; i < 8; i++) {
+      rMap.put(Character.valueOf(ranks[i]), i);
+      fMap.put(Character.valueOf(files[i]), i);
+    }
+    rank = Collections.unmodifiableMap(rMap);
+    file = Collections.unmodifiableMap(fMap);
+  } // End static
 
   public Board() {
     this.turnNumber = 0;
@@ -22,8 +42,8 @@ public class Board {
   private static BasePiece[][] createBoard() {
     BasePiece[][] b = new BasePiece[8][8];
 
-    b[7][4] = new King(Color.WHITE);
-    b[0][3] = new King(Color.BLACK);
+    b[Board.rank.get('1')][Board.file.get('e')] = new King(Color.WHITE);
+    b[Board.rank.get('8')][Board.file.get('e')] = new King(Color.BLACK);
 
     return b;
   }
@@ -35,27 +55,18 @@ public class Board {
    * @return True if the move is valid, False otherwise
    */
   public boolean move(Move m) {
-    // TODO: this whole method
-    Color currentPlayer = this.turnNumber % 2 == 0 ? Color.WHITE : Color.BLACK;
     // Find the piece that's being be moved
-    ArrayList<BasePiece> pieces = this.getPieces(m.getMovedPiece(), currentPlayer);
-
+    BasePiece p = this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())];
     // verify that the move is valid
-    // piece.isValidMove(fromFile, fromRank, toFile, toRank);
-
-    // Check that the move does not hop over any pieces (unless piece is a
-    // knight).
+    if (!p.isValidMove(m.getFromFile(), m.getFromRank(), m.getFile(), m.getRank())) {
+      return false;
+    }
+    this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
+    this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())] = null;
 
     // Move the piece
     this.turnNumber++;
     return true;
-  }
-
-  public ArrayList<BasePiece> getPieces(char piece, Color color) {
-    ArrayList<BasePiece> pieces = new ArrayList<>();
-    // loop through the this.board array to find pieces that have the above
-    // attributes.
-    return pieces;
   }
 
   /**
@@ -64,10 +75,11 @@ public class Board {
    * @implNote Uses terminal escape codes to highlight each square.
    */
   public String toString() {
-    String rankDividor = "\n|---|---|---|---|---|---|---|---|";
-    String output = "" + rankDividor;
-    for (BasePiece[] rank : this.board) {
-      output += "\n|";
+    String rankDividor = "\n--|---|---|---|---|---|---|---|---|";
+    String output = "  | a | b | c | d | e | f | g | h |" + rankDividor;
+    for (int i = 0; i < 8; i++) {
+      BasePiece[] rank = this.board[i];
+      output += "\n" + String.valueOf(8 - i) + " |";
       for (BasePiece piece : rank) {
         output += " " + (piece == null ? " " : piece.toString()) + " |";
       }

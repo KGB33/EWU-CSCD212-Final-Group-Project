@@ -153,7 +153,7 @@ public final class Move {
         + (this.isCheckmate ? "#" : "");
   }
 
-  public int getRank() {
+  public char getRank() {
     return rank;
   }
 
