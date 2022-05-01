@@ -15,7 +15,7 @@ class MoveTest {
   @ValueSource(
       strings = {
         "Bxe5", "Be5", "Kf3", "exd5", "0-0-0", "0-0", "Rdf8", "R1a3", "Qh4e1", "Qh4xe1", "e8Q",
-        "a1Q", "Be5+", "Be5#", "e8Q#"
+        "a1Q", "Be5+", "Be5#", "e8Q#", "Ke1e2",
       })
   void testOutputFromToStringMatchesParsedInput(final String input) throws ParseException {
     final Move m = Move.parse(input);

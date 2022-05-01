@@ -1,0 +1,90 @@
+package chess.classes;
+
+import chess.enums.Color;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+/** Represents a chessboard. */
+public class Board {
+  private BasePiece[][] board;
+
+  private int turnNumber;
+
+  private static final Map<Character, Integer> rank;
+  private static final Map<Character, Integer> file;
+
+  // Called a static initialization block
+  // https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+  static {
+    char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
+    char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    Map<Character, Integer> rMap = new HashMap<>();
+    Map<Character, Integer> fMap = new HashMap<>();
+    for (Integer i = 0; i < 8; i++) {
+      rMap.put(Character.valueOf(ranks[i]), i);
+      fMap.put(Character.valueOf(files[i]), i);
+    }
+    rank = Collections.unmodifiableMap(rMap);
+    file = Collections.unmodifiableMap(fMap);
+  } // End static
+
+  public Board() {
+    this.turnNumber = 0;
+    this.board = Board.createBoard();
+  }
+
+  /**
+   * Creates a 2D array representing the starting posistions for a chessboard.
+   *
+   * <p>TODO: Add non-king pieces
+   */
+  private static BasePiece[][] createBoard() {
+    BasePiece[][] b = new BasePiece[8][8];
+
+    b[Board.rank.get('1')][Board.file.get('e')] = new King(Color.WHITE);
+    b[Board.rank.get('8')][Board.file.get('e')] = new King(Color.BLACK);
+
+    return b;
+  }
+
+  /**
+   * Moves a piece on the board.
+   *
+   * @param m The move to do
+   * @return True if the move is valid, False otherwise
+   */
+  public boolean move(Move m) {
+    // Find the piece that's being be moved
+    BasePiece p = this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())];
+    // verify that the move is valid
+    if (!p.isValidMove(m.getFromFile(), m.getFromRank(), m.getFile(), m.getRank())) {
+      return false;
+    }
+    this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
+    this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())] = null;
+
+    // Move the piece
+    this.turnNumber++;
+    return true;
+  }
+
+  /**
+   * String representation of the board.
+   *
+   * @implNote Uses terminal escape codes to highlight each square.
+   */
+  public String toString() {
+    String rankDividor = "\n--|---|---|---|---|---|---|---|---|";
+    String output = "  | a | b | c | d | e | f | g | h |" + rankDividor;
+    for (int i = 0; i < 8; i++) {
+      BasePiece[] rank = this.board[i];
+      output += "\n" + String.valueOf(8 - i) + " |";
+      for (BasePiece piece : rank) {
+        output += " " + (piece == null ? " " : piece.toString()) + " |";
+      }
+      output += rankDividor;
+    }
+    return output;
+  }
+}
