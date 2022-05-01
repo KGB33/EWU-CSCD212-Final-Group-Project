@@ -16,8 +16,8 @@ Patterns:
   - Observer Pattern
 
 # Milesontes 
-  - [ ] April 25th - Complete inital project setup (This document)
-  - [ ] May 7th    - King Tracer - Bare minimum to move a piece.
+  - [x] April 25th - Complete inital project setup (This document)
+  - [x] May 7th    - King Tracer - Bare minimum to move a piece.
     - [ ] May 1st - Simple API
       - [ ] CLI/(g)RPC/web
     - [ ] May 1st - King navigation
