@@ -18,9 +18,9 @@ Patterns:
 # Milesontes 
   - [x] April 25th - Complete inital project setup (This document)
   - [x] May 7th    - King Tracer - Bare minimum to move a piece.
-    - [ ] May 1st - Simple API
-      - [ ] CLI/(g)RPC/web
-    - [ ] May 1st - King navigation
+    - [x] May 1st - Simple API
+      - [x] CLI <strike> /(g)RPC/web </strike>
+    - [x] May 1st - King navigation
   - [ ] May 15th - Universal Chess Interface
     - [ ]  Pluggable Open source engine
   - [ ] May 15st - GUI - Interfaces with previously defined API.
