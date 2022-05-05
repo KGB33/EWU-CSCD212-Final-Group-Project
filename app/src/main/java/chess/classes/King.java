@@ -4,8 +4,8 @@ import chess.enums.Color;
 
 /** Represents a King chess piece. */
 public class King extends BasePiece {
-  private static char whiteIcon = '♔';
-  private static char blackIcon = '♚';
+  private static char whiteIcon = '\u2654';
+  private static char blackIcon = '\u265A';
 
   /**
    * Constructor for a King.
@@ -39,5 +39,6 @@ public class King extends BasePiece {
       return false;
     }
     return true;
+    //return ((Math.abs(fromFile - toFile) <= 1 ^ Math.abs(fromRank - toRank) <= 1) ^ (Math.abs(fromFile - toFile) <= 1 && Math.abs(fromRank - toRank) <= 1));
   }
 }
