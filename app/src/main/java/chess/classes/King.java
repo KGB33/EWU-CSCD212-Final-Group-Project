@@ -28,14 +28,17 @@ public class King extends BasePiece {
 
   /** A king can move one square in any direction. */
   @Override
-  public boolean isValidMove(char fromFile, char fromRank, char toFile, char toRank) {
-    if (fromFile == toFile && fromRank == toRank) {
+  public boolean isValidMove(Board b, Move m) {
+    if (!super.isValidMove(b, m)) {
       return false;
     }
-    if (Math.abs(fromFile - toFile) > 1) {
+    if (m.getFromFile() == m.getFile() && m.getFromRank() == m.getRank()) {
       return false;
     }
-    if (Math.abs(fromRank - toRank) > 1) {
+    if (Math.abs(m.getFromFile() - m.getFile()) > 1) {
+      return false;
+    }
+    if (Math.abs(m.getFromRank() - m.getRank()) > 1) {
       return false;
     }
     return true;

@@ -49,6 +49,25 @@ public class Board {
   }
 
   /**
+   * getSquare returns the BasePiece (or null) of the square with the given rank or file.
+   *
+   * @param rankIn the rank that the square is at.
+   * @param fileIn the file that the square is at.
+   * @return The piece at the given rank and file, or null.
+   * @throws IllegalArgumentException if rank is not in {@link #board.rank}
+   * @throws IllegalArgumentException if file is not in {@link #board.file}
+   */
+  public BasePiece getSquare(char rankIn, char fileIn) {
+    Integer rank = Board.rank.get(rankIn);
+    Integer file = Board.rank.get(fileIn);
+    if (rank == null || file == null) {
+      throw new IllegalArgumentException();
+    }
+
+    return this.board[rank][file];
+  }
+
+  /**
    * Moves a piece on the board.
    *
    * @param m The move to do
@@ -58,7 +77,7 @@ public class Board {
     // Find the piece that's being be moved
     BasePiece p = this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())];
     // verify that the move is valid
-    if (!p.isValidMove(m.getFromFile(), m.getFromRank(), m.getFile(), m.getRank())) {
+    if (!p.isValidMove(this, m)) {
       return false;
     }
     this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
