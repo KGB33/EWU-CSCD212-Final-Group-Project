@@ -67,7 +67,7 @@ public class Board {
     final Integer file = Board.file.get(fileIn);
     final Integer rank = Board.rank.get(rankIn);
     if (rank == null || file == null) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException(fileIn + "/" + rankIn + " is not a valid file/rank.");
     }
 
     return this.board[rank][file];
@@ -88,7 +88,7 @@ public class Board {
     final Integer file = Board.file.get(fileIn);
     final Integer rank = Board.rank.get(rankIn);
     if (rank == null || file == null) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException(fileIn + "/" + rankIn + " is not a valid file/rank.");
     }
 
     this.board[rank][file] = pieceIn;
