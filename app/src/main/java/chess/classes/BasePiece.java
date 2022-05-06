@@ -15,9 +15,8 @@ public abstract class BasePiece {
     }
     // If the move is a capture, check that the captured piece exists & is a different color.
     if (m.isCapture()) {
-      BasePiece toSquare = b.getSquare(m.getRank(), m.getFile());
-      BasePiece fromSquare = b.getSquare(m.getFromRank(), m.getFromFile());
-      if (toSquare == null || fromSquare == null || toSquare.color == fromSquare.color) {
+      BasePiece toSquare = b.getSquare(m.getFile(), m.getRank());
+      if (toSquare == null || toSquare.color.equals(this.color)) {
         return false;
       }
     }
