@@ -2,7 +2,6 @@
 Group Members (Back Row 1):
   - Kelton Bassingthwaite
   - Josh Pedersen
-  - Cole McDonald
   - Malcolm Shepherd
 
 # Project Summary
