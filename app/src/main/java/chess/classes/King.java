@@ -32,9 +32,6 @@ public class King extends BasePiece {
     if (!super.isValidMove(b, m)) {
       return false;
     }
-    if (m.getFromFile() == m.getFile() && m.getFromRank() == m.getRank()) {
-      return false;
-    }
     if (Math.abs(m.getFromFile() - m.getFile()) > 1) {
       return false;
     }

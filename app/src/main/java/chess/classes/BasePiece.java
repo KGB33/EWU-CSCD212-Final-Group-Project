@@ -9,6 +9,11 @@ public abstract class BasePiece {
   protected Color color;
 
   public boolean isValidMove(Board b, Move m) {
+    // Cannot move to the square it is on.
+    if (m.getFromFile() == m.getFile() && m.getFromRank() == m.getRank()) {
+      return false;
+    }
+    // If the move is a capture, check that the captured piece exists & is a different color.
     if (m.isCapture()) {
       BasePiece toSquare = b.getSquare(m.getRank(), m.getFile());
       BasePiece fromSquare = b.getSquare(m.getFromRank(), m.getFromFile());
