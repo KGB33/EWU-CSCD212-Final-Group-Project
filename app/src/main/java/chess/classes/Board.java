@@ -63,9 +63,9 @@ public class Board {
    * @throws IllegalArgumentException if rank is not in {@link #board.rank}
    * @throws IllegalArgumentException if file is not in {@link #board.file}
    */
-  public BasePiece getSquare(final char rankIn, final char fileIn) {
+  public BasePiece getSquare(final char fileIn, final char rankIn) {
+    final Integer file = Board.file.get(fileIn);
     final Integer rank = Board.rank.get(rankIn);
-    final Integer file = Board.rank.get(fileIn);
     if (rank == null || file == null) {
       throw new IllegalArgumentException();
     }
@@ -84,9 +84,9 @@ public class Board {
    * @throws IllegalArgumentException if rank is not in {@link #board.rank}
    * @throws IllegalArgumentException if file is not in {@link #board.file}
    */
-  protected void setSquare(final char rankIn, final char fileIn, final BasePiece pieceIn) {
+  protected void setSquare(final char fileIn, final char rankIn, final BasePiece pieceIn) {
+    final Integer file = Board.file.get(fileIn);
     final Integer rank = Board.rank.get(rankIn);
-    final Integer file = Board.rank.get(fileIn);
     if (rank == null || file == null) {
       throw new IllegalArgumentException();
     }
