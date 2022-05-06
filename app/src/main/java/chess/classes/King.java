@@ -39,6 +39,7 @@ public class King extends BasePiece {
       return false;
     }
     return true;
-    //return ((Math.abs(fromFile - toFile) <= 1 ^ Math.abs(fromRank - toRank) <= 1) ^ (Math.abs(fromFile - toFile) <= 1 && Math.abs(fromRank - toRank) <= 1));
+    // return ((Math.abs(fromFile - toFile) <= 1 ^ Math.abs(fromRank - toRank) <= 1) ^
+    // (Math.abs(fromFile - toFile) <= 1 && Math.abs(fromRank - toRank) <= 1));
   }
 }
