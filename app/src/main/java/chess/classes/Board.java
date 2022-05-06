@@ -42,8 +42,14 @@ public class Board {
   private static BasePiece[][] createBoard() {
     final BasePiece[][] b = new BasePiece[8][8];
 
+    // White Pieces
+
     b[Board.rank.get('1')][Board.file.get('e')] = new King(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('d')] = new Queen(Color.WHITE);
+
+    // Black Pieces
     b[Board.rank.get('8')][Board.file.get('e')] = new King(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('d')] = new King(Color.BLACK);
 
     return b;
   }
