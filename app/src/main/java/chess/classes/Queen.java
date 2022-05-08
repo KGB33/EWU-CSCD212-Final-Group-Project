@@ -32,8 +32,8 @@ public class Queen extends BasePiece {
     }
 
     // ensure that no pieces are being hopped over
-    int rankNorm = rankDelta != 0 ? (m.getFromRank() - m.getRank()) / rankDelta * (-1) : 0;
-    int fileNorm = fileDelta != 0 ? (m.getFromFile() - m.getFile()) / fileDelta * (-1) : 0;
+    int rankNorm = rankDelta != 0 ? (m.getRank() - m.getFromRank()) / rankDelta : 0;
+    int fileNorm = fileDelta != 0 ? (m.getFile() - m.getFromFile()) / fileDelta : 0;
     for (int r = m.getFromRank() + rankNorm, f = m.getFromFile() + fileNorm;
         (char) r != m.getRank() || (char) f != m.getFile();
         r = r + rankNorm, f = f + fileNorm) {
