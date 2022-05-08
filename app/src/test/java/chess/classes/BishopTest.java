@@ -1,7 +1,9 @@
 package chess.classes;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import chess.enums.Color;
 import java.text.ParseException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,12 +14,14 @@ public class BishopTest {
 
   @Test
   void testBlackToString() {
-    assertFalse(true);
+    Bishop b = new Bishop(Color.BLACK);
+    assertEquals("♝", b.toString());
   }
 
   @Test
   void testWhiteToString() {
-    assertFalse(true);
+    Bishop b = new Bishop(Color.WHITE);
+    assertEquals("♗", b.toString());
   }
 
   @ParameterizedTest(name = "Bishop.isValidMove method {0} (valid)")
