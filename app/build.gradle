@@ -40,6 +40,14 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+task ci {
+	dependsOn tasks.getByName('verifyGoogleJavaFormat')
+	dependsOn 'build'
+	dependsOn 'test'
+	dependsOn 'check'
+	dependsOn 'javadoc'
+}
+
 test {
     maxParallelForks 3
 }

@@ -29,24 +29,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Build with Gradle
+    - name: Run CI with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
-        arguments: build
-
-    - name: Test with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: test
-
-    - name: Check formatting
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: verGJF
-
-    - name: Run Checkstyle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: check
-
-      
+        arguments: ci

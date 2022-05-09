@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  *
  * <p>https://en.wikipedia.org/wiki/Algebraic_notation_(chess)
  *
- * @implNote Consider turning Parse method into a MoveFactory
+ * <p>Note: Consider turning Parse method into a MoveFactory
  */
 public final class Move {
   // Consider changing rank, file, and movedPiece to Enums.
