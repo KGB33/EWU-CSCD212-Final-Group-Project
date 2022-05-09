@@ -66,8 +66,8 @@ public class Board {
    * @param rankIn the rank that the square is at.
    * @param fileIn the file that the square is at.
    * @return The piece at the given rank and file, or null.
-   * @throws IllegalArgumentException if rank is not in {@link #board.rank}
-   * @throws IllegalArgumentException if file is not in {@link #board.file}
+   * @throws IllegalArgumentException if rank is not in @link #board.rank
+   * @throws IllegalArgumentException if file is not in @link #board.file
    */
   public BasePiece getSquare(final char fileIn, final char rankIn) {
     final Integer file = Board.file.get(fileIn);
@@ -87,8 +87,8 @@ public class Board {
    * @param rankIn the rank that the square is at.
    * @param fileIn the file that the square is at.
    * @param pieceIn the piece to place on the square.
-   * @throws IllegalArgumentException if rank is not in {@link #board.rank}
-   * @throws IllegalArgumentException if file is not in {@link #board.file}
+   * @throws IllegalArgumentException if rank is not in @link #board.rank
+   * @throws IllegalArgumentException if file is not in @link #board.file
    */
   protected void setSquare(final char fileIn, final char rankIn, final BasePiece pieceIn) {
     final Integer file = Board.file.get(fileIn);
@@ -125,7 +125,7 @@ public class Board {
   /**
    * String representation of the board.
    *
-   * @implNote Uses terminal escape codes to highlight each square.
+   * <p>Note Uses terminal escape codes to highlight each square.
    */
   public String toString() {
     final String rankDividor = "\n--|---|---|---|---|---|---|---|---|";
