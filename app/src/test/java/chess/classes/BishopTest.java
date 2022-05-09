@@ -86,6 +86,6 @@ public class BishopTest {
     Move m = Move.parse("Ba1xh8");
     b.setSquare('a', '1', bishop);
     b.setSquare('h', '8', new Bishop(Color.BLACK));
-    assertFalse(bishop.isValidMove(b, m));
+    assertTrue(bishop.isValidMove(b, m));
   }
 }
