@@ -73,7 +73,7 @@ public class RookTest {
   void testCannotCaputreSameTeam() throws ParseException {
     Board b = Board.createEmtpyBoard();
     Rook r = new Rook(Color.WHITE);
-    Move m = Move.parse("Ra1a8");
+    Move m = Move.parse("Ra1xa8");
     b.setSquare('a', '8', new Rook(Color.WHITE));
     b.setSquare('a', '1', r);
     assertFalse(r.isValidMove(b, m));
@@ -83,9 +83,9 @@ public class RookTest {
   void testCaptureOpposingPieces() throws ParseException {
     Board b = Board.createEmtpyBoard();
     Rook r = new Rook(Color.BLACK);
-    Move m = Move.parse("Ra1a8");
+    Move m = Move.parse("Ra1xa8");
     b.setSquare('a', '8', new Rook(Color.WHITE));
     b.setSquare('a', '1', r);
-    assertFalse(r.isValidMove(b, m));
+    assertTrue(r.isValidMove(b, m));
   }
 }
