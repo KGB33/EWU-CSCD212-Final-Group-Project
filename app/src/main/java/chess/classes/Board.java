@@ -44,12 +44,24 @@ public class Board {
 
     // White Pieces
 
-    b[Board.rank.get('1')][Board.file.get('e')] = new King(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('a')] = new Rook(Color.WHITE);
+
+    b[Board.rank.get('1')][Board.file.get('c')] = new Bishop(Color.WHITE);
     b[Board.rank.get('1')][Board.file.get('d')] = new Queen(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('e')] = new King(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('f')] = new Bishop(Color.WHITE);
+
+    b[Board.rank.get('1')][Board.file.get('h')] = new Rook(Color.WHITE);
 
     // Black Pieces
+    b[Board.rank.get('8')][Board.file.get('a')] = new Rook(Color.BLACK);
+
+    b[Board.rank.get('8')][Board.file.get('c')] = new Bishop(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('e')] = new King(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('d')] = new King(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('f')] = new Bishop(Color.BLACK);
+
+    b[Board.rank.get('8')][Board.file.get('h')] = new Rook(Color.BLACK);
 
     return b;
   }
