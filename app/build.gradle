@@ -31,8 +31,16 @@ application {
     mainClass = 'chess.Main'
 }
 
+compileJava.configure {
+	options.encoding = 'UTF-8'
+}
+
 run {
     standardInput = System.in
+}
+
+run.configure {
+	allJvmArgs = ['-Dsun.stdout.encoding=cp437']
 }
 
 tasks.named('test') {
