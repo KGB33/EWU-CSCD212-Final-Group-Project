@@ -39,10 +39,6 @@ run {
     standardInput = System.in
 }
 
-run.configure {
-	allJvmArgs = ['-Dsun.stdout.encoding=cp437']
-}
-
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
