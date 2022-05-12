@@ -22,7 +22,7 @@ public class KnightTest {
   @Test
   void testWhiteToString() {
     Knight n = new Knight(Color.WHITE);
-    assertEquals("♘", n, toString());
+    assertEquals("♘", n.toString());
   }
 
   @ParameterizedTest(name = "Knight isValidMove {0} (valid)")
