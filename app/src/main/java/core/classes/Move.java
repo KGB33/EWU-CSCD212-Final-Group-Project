@@ -1,4 +1,4 @@
-package chess.classes;
+package core.classes;
 
 import java.text.ParseException;
 import java.util.Set;

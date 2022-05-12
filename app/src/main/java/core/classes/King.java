@@ -1,6 +1,6 @@
-package chess.classes;
+package core.classes;
 
-import chess.enums.Color;
+import core.enums.Color;
 
 /** Represents a King chess piece. */
 public class King extends BasePiece {
@@ -39,7 +39,8 @@ public class King extends BasePiece {
       return false;
     }
     return true;
-    // return ((Math.abs(fromFile - toFile) <= 1 ^ Math.abs(fromRank - toRank) <= 1) ^
-    // (Math.abs(fromFile - toFile) <= 1 && Math.abs(fromRank - toRank) <= 1));
+    // return ((Math.abs(fromFile - toFile) <= 1 ^ Math.abs(fromRank - toRank)
+    // <= 1) ^ (Math.abs(fromFile - toFile) <= 1 && Math.abs(fromRank - toRank)
+    // <= 1));
   }
 }

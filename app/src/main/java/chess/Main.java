@@ -1,7 +1,7 @@
 package chess;
 
-import chess.classes.Board;
-import chess.classes.Move;
+import core.classes.Board;
+import core.classes.Move;
 import java.text.ParseException;
 import java.util.Scanner;
 

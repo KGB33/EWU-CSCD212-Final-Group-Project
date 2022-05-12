@@ -1,23 +1,18 @@
-package chess.classes;
+package core.classes;
 
-import chess.enums.Color;
+import core.enums.Color;
 
-/** Queen */
-public class Queen extends BasePiece {
-  private static char whiteIcon = '\u2655';
-  private static char blackIcon = '\u265B';
+/** Rook */
+public class Rook extends BasePiece {
+  private static char whiteIcon = '\u2656';
+  private static char blackIcon = '\u265C';
 
-  public Queen(final Color color) {
+  public Rook(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
     }
     this.color = color;
-    if (color.equals(Color.BLACK)) {
-      this.icon = Queen.blackIcon;
-    }
-    if (color.equals(Color.WHITE)) {
-      this.icon = Queen.whiteIcon;
-    }
+    this.icon = color.equals(Color.WHITE) ? Rook.whiteIcon : Rook.blackIcon;
   }
 
   @Override
@@ -25,13 +20,12 @@ public class Queen extends BasePiece {
     if (!super.isValidMove(b, m)) {
       return false;
     }
+
     int rankDelta = Math.abs(m.getFromRank() - m.getRank());
     int fileDelta = Math.abs(m.getFromFile() - m.getFile());
-    if (!(rankDelta == 0 ^ fileDelta == 0 ^ fileDelta == rankDelta)) {
+    if (!(rankDelta == 0 ^ fileDelta == 0)) {
       return false;
     }
-
-    // ensure that no pieces are being hopped over
     int rankNorm = rankDelta != 0 ? (m.getRank() - m.getFromRank()) / rankDelta : 0;
     int fileNorm = fileDelta != 0 ? (m.getFile() - m.getFromFile()) / fileDelta : 0;
     for (int r = m.getFromRank() + rankNorm, f = m.getFromFile() + fileNorm;

@@ -1,8 +1,8 @@
-package chess.classes;
+package core.classes;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import chess.enums.Color;
+import core.enums.Color;
 import org.junit.jupiter.api.BeforeEach;
 
 /** BoardTest */
