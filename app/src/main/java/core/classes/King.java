@@ -1,6 +1,6 @@
-package chess.classes;
+package core.classes;
 
-import chess.enums.Color;
+import core.enums.Color;
 
 /** Represents a King chess piece. */
 public class King extends BasePiece {

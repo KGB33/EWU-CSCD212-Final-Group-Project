@@ -1,6 +1,6 @@
-package chess.classes;
+package core.classes;
 
-import chess.enums.Color;
+import core.enums.Color;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

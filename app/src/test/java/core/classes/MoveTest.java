@@ -1,4 +1,4 @@
-package chess.classes;
+package core.classes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
