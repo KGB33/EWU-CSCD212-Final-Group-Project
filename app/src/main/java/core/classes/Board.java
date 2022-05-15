@@ -58,7 +58,7 @@ public class Board {
     b[Board.rank.get('8')][Board.file.get('b')] = new Knight(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('c')] = new Bishop(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('e')] = new King(Color.BLACK);
-    b[Board.rank.get('8')][Board.file.get('d')] = new King(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('d')] = new Queen(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('f')] = new Bishop(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('g')] = new Knight(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('h')] = new Rook(Color.BLACK);
@@ -122,6 +122,9 @@ public class Board {
     // Find the piece that's being be moved
     final BasePiece p =
         this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())];
+    if (p == null) {
+      return false;
+    }
     // verify that the move is valid
     if (!p.isValidMove(this, m)) {
       return false;
