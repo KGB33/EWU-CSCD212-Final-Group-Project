@@ -2,6 +2,9 @@ package core.classes;
 
 import core.enums.Color;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+
 /** The parent class for all chess pieces. */
 public abstract class BasePiece {
   /*A unicode chess icon i.e.
@@ -23,6 +26,10 @@ public abstract class BasePiece {
    */
   protected char icon;
   protected Color color;
+  protected char[] current;
+
+  final char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
+  final char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
   public boolean isValidMove(Board b, Move m) {
     // Cannot move to the square it is on.
@@ -37,6 +44,18 @@ public abstract class BasePiece {
       }
     }
     return true;
+  }
+
+  public char[] getCurrent() {
+    return current;
+  }
+
+  public void setCurrent(char file, char rank) {}
+
+  //add get rank and file location
+
+  public ArrayList<Move> validMoves(Board b) throws ParseException {
+    return new ArrayList<>();
   }
 
   public String toString() {

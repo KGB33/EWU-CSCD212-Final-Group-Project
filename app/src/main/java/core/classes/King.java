@@ -2,10 +2,15 @@ package core.classes;
 
 import core.enums.Color;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+
 /** Represents a King chess piece. */
 public class King extends BasePiece {
   private static char whiteIcon = '\u2654';
   private static char blackIcon = '\u265A';
+
+  private char[] current = {'0', '0'};
 
   /**
    * Constructor for a King.
@@ -24,6 +29,7 @@ public class King extends BasePiece {
     if (color.equals(Color.WHITE)) {
       this.icon = King.whiteIcon;
     }
+    this.current = getCurrent();
   }
 
   /** A king can move one square in any direction. */
@@ -42,5 +48,34 @@ public class King extends BasePiece {
     // return ((Math.abs(fromFile - toFile) <= 1 ^ Math.abs(fromRank - toRank)
     // <= 1) ^ (Math.abs(fromFile - toFile) <= 1 && Math.abs(fromRank - toRank)
     // <= 1));
+  }
+
+  @Override
+  public char[] getCurrent() {
+    return this.current;
+  }
+
+  @Override
+  public void setCurrent(char file, char rank) {
+    this.current[0] = file;
+    this.current[1] = rank;
+  }
+  // not done
+  public ArrayList<Move> validMoves(Board b) throws ParseException {
+    char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    Move toCheck;
+    ArrayList<Move> moves = new ArrayList<>();
+    for (char file : files)
+    {
+      for (int i = 1; i <= 8; i++)
+      {
+        toCheck = Move.parse(Character.toString(current[0]) + current[1] + file + i);
+        if(isValidMove(b, toCheck))
+        {
+          moves.add(toCheck);
+        }
+      }
+    }
+    return moves;
   }
 }

@@ -2,10 +2,15 @@ package core.classes;
 
 import core.enums.Color;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+
 /** Rook */
 public class Rook extends BasePiece {
   private static char whiteIcon = '\u2656';
   private static char blackIcon = '\u265C';
+
+  private char[] current = {'0', '0'};
 
   public Rook(final Color color) {
     if (color == null) {
@@ -13,6 +18,7 @@ public class Rook extends BasePiece {
     }
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Rook.whiteIcon : Rook.blackIcon;
+    this.current = getCurrent();
   }
 
   @Override
@@ -36,5 +42,34 @@ public class Rook extends BasePiece {
       }
     }
     return true;
+  }
+
+  @Override
+  public char[] getCurrent() {
+    return this.current;
+  }
+
+  @Override
+  public void setCurrent(char file, char rank) {
+    this.current[0] = file;
+    this.current[1] = rank;
+  }
+  // not done
+  public ArrayList<Move> validMoves(Board b) throws ParseException {
+    char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    Move toCheck;
+    ArrayList<Move> moves = new ArrayList<>();
+    for (char file : files)
+    {
+      for (int i = 1; i <= 8; i++)
+      {
+        toCheck = Move.parse(Character.toString(current[0]) + current[1] + file + i);
+        if(isValidMove(b, toCheck))
+        {
+          moves.add(toCheck);
+        }
+      }
+    }
+    return moves;
   }
 }

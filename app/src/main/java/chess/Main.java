@@ -2,6 +2,7 @@ package chess;
 
 import core.classes.Board;
 import core.classes.Move;
+import ai.Computer;
 import java.text.ParseException;
 import java.util.Scanner;
 
