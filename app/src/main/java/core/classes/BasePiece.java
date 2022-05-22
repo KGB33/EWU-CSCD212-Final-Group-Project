@@ -39,6 +39,10 @@ public abstract class BasePiece {
     return true;
   }
 
+  public Color getColor(){
+    return this.color;
+  }
+
   public String toString() {
     return String.valueOf(this.icon);
   }

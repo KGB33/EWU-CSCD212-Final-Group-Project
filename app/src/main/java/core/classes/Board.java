@@ -34,6 +34,10 @@ public class Board {
     this.board = Board.createBoard();
   }
 
+  public BasePiece[][] getBoard(){
+    return this.board;
+  }
+
   /**
    * Creates a 2D array representing the starting posistions for a chessboard.
    *
