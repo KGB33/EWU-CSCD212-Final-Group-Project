@@ -23,9 +23,9 @@ Patterns:
   - [ ] May 15th - Universal Chess Interface
     - [ ]  Pluggable Open source engine
   - [ ] May 15st - GUI - Interfaces with previously defined API.
-    - [ ] Board
+    - [x] Board
     - [ ] Navigation Buttons
-    - [ ] Move Preview / Validation
+    - [x] Move Preview / Validation
   - [ ] May 15th - Remaining Pecies
     - [ ] Capture
     - [ ] Check/Checkmate

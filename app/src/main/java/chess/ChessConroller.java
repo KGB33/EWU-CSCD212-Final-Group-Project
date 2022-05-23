@@ -1,4 +1,4 @@
-package com.example.chessgui;
+package chess;
 
 import core.classes.*;
 import core.enums.Color;
