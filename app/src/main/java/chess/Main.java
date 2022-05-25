@@ -2,14 +2,13 @@ package chess;
 
 import core.classes.Board;
 import core.classes.Move;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Scanner;
 
 public class Main extends Application {
   @Override
@@ -23,8 +22,10 @@ public class Main extends Application {
 
   public static void main(String[] args) {
     String key = "";
-    for(String str: args){
-      if(str.equals("cli")) { key = str; }
+    for (String str : args) {
+      if (str.equals("cli")) {
+        key = str;
+      }
     }
     if (args.length >= 1 && key.equals("cli")) {
       System.out.println("Starting cli... ");
@@ -35,7 +36,7 @@ public class Main extends Application {
       do {
         System.out.println(b.toString());
         System.out.println(
-                "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
+            "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
         input = kb.nextLine().trim();
         if (input.equals("q")) {
           break;
@@ -52,8 +53,7 @@ public class Main extends Application {
 
       } while (true);
       kb.close();
-    }
-    else {
+    } else {
       System.out.println("Starting GUI...");
       launch();
     }

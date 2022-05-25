@@ -39,7 +39,7 @@ public abstract class BasePiece {
     return true;
   }
 
-  public Color getColor(){
+  public Color getColor() {
     return this.color;
   }
 

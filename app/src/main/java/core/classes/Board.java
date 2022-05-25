@@ -34,7 +34,7 @@ public class Board {
     this.board = Board.createBoard();
   }
 
-  public BasePiece[][] getBoard(){
+  public BasePiece[][] getBoard() {
     return this.board;
   }
 
