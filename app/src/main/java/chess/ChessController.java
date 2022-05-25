@@ -2,14 +2,10 @@ package chess;
 
 import core.classes.*;
 import core.enums.Color;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -19,94 +15,19 @@ import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.text.ParseException;
-import java.util.EventListener;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
-public class ChessConroller implements Initializable {
-    Scanner kb = new Scanner(System.in);
+public class ChessController implements Initializable {
     core.classes.Board b = new Board();
-    /*Move m;
-    String input;*/
 
     @FXML private TextField moveInput;
     @FXML private Button moveButton;
     @FXML private GridPane BoardPane;
-    @FXML private Button button;
-    @FXML private ImageView a1;
-    @FXML private ImageView a2;
-    @FXML private ImageView a3;
-    @FXML private ImageView a4;
-    @FXML private ImageView a5;
-    @FXML private ImageView a6;
-    @FXML private ImageView a7;
-    @FXML private ImageView a8;
-    @FXML private ImageView b1;
-    @FXML private ImageView b2;
-    @FXML private ImageView b3;
-    @FXML private ImageView b4;
-    @FXML private ImageView b5;
-    @FXML private ImageView b6;
-    @FXML private ImageView b7;
-    @FXML private ImageView b8;
-    @FXML private ImageView c1;
-    @FXML private ImageView c2;
-    @FXML private ImageView c3;
-    @FXML private ImageView c4;
-    @FXML private ImageView c5;
-    @FXML private ImageView c6;
-    @FXML private ImageView c7;
-    @FXML private ImageView c8;
-    @FXML private ImageView d1;
-    @FXML private ImageView d2;
-    @FXML private ImageView d3;
-    @FXML private ImageView d4;
-    @FXML private ImageView d5;
-    @FXML private ImageView d6;
-    @FXML private ImageView d7;
-    @FXML private ImageView d8;
-    @FXML private ImageView e1;
-    @FXML private ImageView e2;
-    @FXML private ImageView e3;
-    @FXML private ImageView e4;
-    @FXML private ImageView e5;
-    @FXML private ImageView e6;
-    @FXML private ImageView e7;
-    @FXML private ImageView e8;
-    @FXML private ImageView f1;
-    @FXML private ImageView f2;
-    @FXML private ImageView f3;
-    @FXML private ImageView f4;
-    @FXML private ImageView f5;
-    @FXML private ImageView f6;
-    @FXML private ImageView f7;
-    @FXML private ImageView f8;
-    @FXML private ImageView g1;
-    @FXML private ImageView g2;
-    @FXML private ImageView g3;
-    @FXML private ImageView g4;
-    @FXML private ImageView g5;
-    @FXML private ImageView g6;
-    @FXML private ImageView g7;
-    @FXML private ImageView g8;
-    @FXML private ImageView h1;
-    @FXML private ImageView h2;
-    @FXML private ImageView h3;
-    @FXML private ImageView h4;
-    @FXML private ImageView h5;
-    @FXML private ImageView h6;
-    @FXML private ImageView h7;
-    @FXML private ImageView h8;
     private ImageView oldSelected;
     private ImageView selected = null;
-    private ColorAdjust red = new ColorAdjust(0, .99, .4, 0);
-    private ColorAdjust green = new ColorAdjust(.6, .99, .4, 0);
-    private EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
+    final private ColorAdjust RED = new ColorAdjust(0, .99, .4, 0);
+    final private ColorAdjust GREEN = new ColorAdjust(.6, .99, .4, 0);
 
-        }
-    };
     private ImageView[][] images = new ImageView[8][8];
 
     @FXML
@@ -121,7 +42,6 @@ public class ChessConroller implements Initializable {
                 if (row == null) row = 0;
                 if (col == null) col = 0;
                 images[7-row][col] = (ImageView) n;
-                //System.out.println(n.toString()+ ": " + n.getId());
                 count++;
             }
         }
@@ -131,8 +51,8 @@ public class ChessConroller implements Initializable {
     protected void selectPiece(MouseEvent mouseEvent){
         oldSelected = selected;
         selected = (ImageView) mouseEvent.getSource();
-        if(selected.getEffect() != red) {
-            for (ImageView image[] : images) {
+        if(selected.getEffect() != RED) {
+            for (ImageView[] image : images) {
                 for (ImageView i : image) {
                     i.setEffect(null);
                 }
@@ -223,7 +143,7 @@ public class ChessConroller implements Initializable {
         else{
             return;
         }
-        piece.setEffect(green);
+        piece.setEffect(GREEN);
         for(char i = 97; i < 105; i++){
             for(int j = 1; j < 9; j ++){
                 input = from + i + j;
@@ -233,7 +153,7 @@ public class ChessConroller implements Initializable {
                     e.printStackTrace();
                 }
                 if(b.getSquare((char)(col+97),(char)(row+49)).isValidMove(b, preview)){
-                    images[j-1][i-97].setEffect(red);
+                    images[j-1][i-97].setEffect(RED);
                 }
             }
         }
@@ -258,7 +178,7 @@ public class ChessConroller implements Initializable {
 
     @FXML
     protected void updateBoard(){
-        for (ImageView image[] : images) {
+        for (ImageView[] image : images) {
             for (ImageView i : image) {
                 i.setEffect(null);
             }
