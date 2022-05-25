@@ -1,6 +1,7 @@
 package core.classes;
 
 import core.enums.Color;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ public class Board {
   private BasePiece[][] board;
 
   private int turnNumber;
+  private ArrayList<Move> moves;
 
   private static final Map<Character, Integer> rank;
   private static final Map<Character, Integer> file;
@@ -32,6 +34,7 @@ public class Board {
   public Board() {
     this.turnNumber = 0;
     this.board = Board.createBoard();
+    this.moves = new ArrayList<Move>();
   }
 
   /**
@@ -129,10 +132,12 @@ public class Board {
     if (!p.isValidMove(this, m)) {
       return false;
     }
+    // FIXME: En-passant does not remove the captured piece
     this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
     this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())] = null;
 
     // Move the piece
+    this.moves.add(m);
     this.turnNumber++;
     return true;
   }
@@ -154,5 +159,13 @@ public class Board {
       output += rankDividor;
     }
     return output;
+  }
+
+  public int getTurnNumber() {
+    return this.turnNumber;
+  }
+
+  public ArrayList<Move> getMoves() {
+    return this.moves;
   }
 }
