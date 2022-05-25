@@ -55,6 +55,9 @@ public class Board {
     b[Board.rank.get('1')][Board.file.get('f')] = new Bishop(Color.WHITE);
     b[Board.rank.get('1')][Board.file.get('g')] = new Knight(Color.WHITE);
     b[Board.rank.get('1')][Board.file.get('h')] = new Rook(Color.WHITE);
+    for (int file : Board.file.values()) {
+      b[Board.rank.get('2')][file] = new Pawn(Color.WHITE);
+    }
 
     // Black Pieces
     b[Board.rank.get('8')][Board.file.get('a')] = new Rook(Color.BLACK);
@@ -65,6 +68,10 @@ public class Board {
     b[Board.rank.get('8')][Board.file.get('f')] = new Bishop(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('g')] = new Knight(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('h')] = new Rook(Color.BLACK);
+
+    for (int file : Board.file.values()) {
+      b[Board.rank.get('7')][file] = new Pawn(Color.BLACK);
+    }
 
     return b;
   }
@@ -132,7 +139,11 @@ public class Board {
     if (!p.isValidMove(this, m)) {
       return false;
     }
-    // FIXME: En-passant does not remove the captured piece
+    // Special Case: En-passant doesn't capture on the end-square
+    if ((p instanceof Pawn) && ((Pawn) p).isEnPassant(this, m)) {
+      this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFile())] = null;
+    }
+    // FIXME: Pawn promtions don't do anything
     this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
     this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())] = null;
 

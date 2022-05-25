@@ -102,4 +102,12 @@ public class Pawn extends BasePiece {
 
     return false;
   }
+
+  /** Checks if a given move is en-passant. */
+  public boolean isEnPassant(Board b, Move m) {
+    if (!super.isValidMove(b, m)) {
+      return isValidEnPassant(b, m);
+    }
+    return false;
+  }
 }
