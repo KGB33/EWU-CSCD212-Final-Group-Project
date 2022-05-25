@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Main extends Application {
   @Override
   public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ChessGui.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/gui/ChessGui.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 700, 600);
     stage.setTitle("Hello!");
     stage.setScene(scene);
@@ -22,7 +22,11 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-    if (args.length >= 1 && args[0].equals("cli")) {
+    String key = "";
+    for(String str: args){
+      if(str.equals("cli")) { key = str; }
+    }
+    if (args.length >= 1 && key.equals("cli")) {
       System.out.println("Starting cli... ");
       Scanner kb = new Scanner(System.in);
       Board b = new Board();

@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -35,162 +34,69 @@
         </rowConstraints>
          <children>
             <ImageView fx:id="h8" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7">
-               <image>
-                  <Image url="@/images/bRook.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="g8" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
-               <image>
-                  <Image url="@/images/bKnight.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="f8" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
-               <image>
-                  <Image url="@/images/bBishop.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="e8" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
-               <image>
-                  <Image url="@/images/bKing.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="d8" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@/images/bQueen.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="c8" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@/images/bBishop.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="b8" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@/images/bKnight.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="a1" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wRook.png" />
-               </image>
                <effect>
                   <ColorAdjust brightness="0.45" hue="0.61" saturation="1.0" />
                </effect>
             </ImageView>
             <ImageView fx:id="b1" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wKnight.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="h1" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wRook.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="g1" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wKnight.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="f1" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wBishop.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="e1" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wKing.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="d1" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wQueen.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="c1" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="7">
-               <image>
-                  <Image url="@/images/wBishop.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="a7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="b7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="c7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="d7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="e7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="f7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="g7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="h7" fitHeight="50.0" fitWidth="81.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@/images/bPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="h2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="g2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="f2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="e2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="d2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="c2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="b2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="a2" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6">
-               <image>
-                  <Image url="@/images/wPawn.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="h6" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.rowIndex="2" />
             <ImageView fx:id="g6" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="2" />
@@ -225,9 +131,6 @@
             <ImageView fx:id="b3" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ImageView fx:id="a3" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
             <ImageView fx:id="a8" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#selectPiece" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/images/bRook.png" />
-               </image>
                <effect>
                   <ColorAdjust brightness="0.12" contrast="0.19" hue="0.19" saturation="0.61" />
                </effect>

@@ -17,7 +17,8 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
 
-public class ChessController implements Initializable {
+public class
+ChessController implements Initializable {
     core.classes.Board b = new Board();
 
     @FXML private TextField moveInput;
@@ -187,7 +188,7 @@ public class ChessController implements Initializable {
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++) {
                 if(b.getSquare((char)(i+97),(char)(j+49)) == null){
-                    images[j][i].setImage(new Image("images/blank.png"));
+                    images[j][i].setImage(new Image("gui/images/blank.png"));
                 }
                 else{
                     String color;
@@ -196,19 +197,19 @@ public class ChessController implements Initializable {
                     }
                     else color = "w";
                     if(b.getSquare((char)(i+97),(char)(j+49)) instanceof King){
-                        images[j][i].setImage(new Image("images/" + color + "King.png"));
+                        images[j][i].setImage(new Image("gui/images/" + color + "King.png"));
                     }
                     else if(b.getSquare((char)(i+97),(char)(j+49)) instanceof Queen){
-                        images[j][i].setImage(new Image("images/" + color + "Queen.png"));
+                        images[j][i].setImage(new Image("gui/images/" + color + "Queen.png"));
                     }
                     else if(b.getSquare((char)(i+97),(char)(j+49)) instanceof Bishop){
-                        images[j][i].setImage(new Image("images/" + color + "Bishop.png"));
+                        images[j][i].setImage(new Image("gui/images/" + color + "Bishop.png"));
                     }
                     else if(b.getSquare((char)(i+97),(char)(j+49)) instanceof Knight){
-                        images[j][i].setImage(new Image("images/" + color + "Knight.png"));
+                        images[j][i].setImage(new Image("gui/images/" + color + "Knight.png"));
                     }
                     else if(b.getSquare((char)(i+97),(char)(j+49)) instanceof Rook){
-                        images[j][i].setImage(new Image("images/" + color + "Rook.png"));
+                        images[j][i].setImage(new Image("gui/images/" + color + "Rook.png"));
                     }
                 }
             }
