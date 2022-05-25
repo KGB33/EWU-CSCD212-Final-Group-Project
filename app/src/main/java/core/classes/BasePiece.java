@@ -29,14 +29,12 @@ public abstract class BasePiece {
     if (m.getFromFile() == m.getFile() && m.getFromRank() == m.getRank()) {
       return false;
     }
-    // If the move is a capture, check that the captured piece exists & is a different color.
-    if (m.isCapture()) {
-      BasePiece toSquare = b.getSquare(m.getFile(), m.getRank());
-      if (toSquare == null || toSquare.color.equals(this.color)) {
-        return false;
-      }
-    }
-    return true;
+    // If the move is a capture, check that the captured piece exists & is a
+    // different color. Or if the move is not a capture, make sure that its
+    // moving to an empty square.
+    BasePiece toSquare = b.getSquare(m.getFile(), m.getRank());
+    return (!m.isCapture() && toSquare == null)
+        || (m.isCapture() && toSquare != null && !toSquare.color.equals(this.color));
   }
 
   public String toString() {
