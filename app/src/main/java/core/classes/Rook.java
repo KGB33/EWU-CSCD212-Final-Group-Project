@@ -10,6 +10,8 @@ public class Rook extends BasePiece {
   private static char whiteIcon = '\u2656';
   private static char blackIcon = '\u265C';
 
+  private static final int score = 60;
+
   private char[] current = {'0', '0'};
 
   public Rook(final Color color) {
@@ -54,7 +56,7 @@ public class Rook extends BasePiece {
     this.current[0] = file;
     this.current[1] = rank;
   }
-  // not done
+  // not efficient
   public ArrayList<Move> validMoves(Board b) throws ParseException {
     char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     Move toCheck;
@@ -71,5 +73,11 @@ public class Rook extends BasePiece {
       }
     }
     return moves;
+  }
+
+  @Override
+  public int getScore()
+  {
+    return score;
   }
 }

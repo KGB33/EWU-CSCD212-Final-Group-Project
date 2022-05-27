@@ -1,6 +1,7 @@
 package core.classes;
 
 import core.enums.Color;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ public class Board {
   private BasePiece[][] board;
 
   private int turnNumber;
+  private ArrayList<Move> moves;
 
   private static final Map<Character, Integer> rank;
   private static final Map<Character, Integer> file;
@@ -32,6 +34,7 @@ public class Board {
   public Board() {
     this.turnNumber = 0;
     this.board = Board.createBoard();
+    this.moves = new ArrayList<Move>();
   }
 
   /**
@@ -41,6 +44,7 @@ public class Board {
    */
   private static BasePiece[][] createBoard() {
     final BasePiece[][] b = new BasePiece[8][8];
+    final char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
     // White Pieces
 
@@ -60,6 +64,10 @@ public class Board {
     b[Board.rank.get('1')][Board.file.get('g')].setCurrent('g', '1');
     b[Board.rank.get('1')][Board.file.get('h')] = new Rook(Color.WHITE);
     b[Board.rank.get('1')][Board.file.get('h')].setCurrent('h', '1');
+    for (int file : Board.file.values()) {
+      b[Board.rank.get('2')][file] = new Pawn(Color.WHITE);
+      b[Board.rank.get('2')][file].setCurrent(files[file], '2');
+    }
 
     // Black Pieces
     b[Board.rank.get('8')][Board.file.get('a')] = new Rook(Color.BLACK);
@@ -78,6 +86,10 @@ public class Board {
     b[Board.rank.get('8')][Board.file.get('g')].setCurrent('g', '8');
     b[Board.rank.get('8')][Board.file.get('h')] = new Rook(Color.BLACK);
     b[Board.rank.get('8')][Board.file.get('h')].setCurrent('h', '8');
+    for (int file : Board.file.values()) {
+      b[Board.rank.get('7')][file] = new Pawn(Color.BLACK);
+      b[Board.rank.get('7')][file].setCurrent(files[file], '7');
+    }
 
     return b;
   }
@@ -145,6 +157,11 @@ public class Board {
     if (!p.isValidMove(this, m)) {
       return false;
     }
+    // Special Case: En-passant doesn't capture on the end-square
+    if ((p instanceof Pawn) && ((Pawn) p).isEnPassant(this, m)) {
+      this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFile())] = null;
+    }
+    // FIXME: Pawn promtions don't do anything
     p.setCurrent(m.getFile(), m.getRank());
     this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
     this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())] = null;
@@ -172,5 +189,16 @@ public class Board {
     }
     return output;
   }
+  public int getTurnNumber() {
+    return this.turnNumber;
+  }
 
+  public ArrayList<Move> getMoves() {
+    return this.moves;
+  }
+
+  public BasePiece[][] getBoardMap()
+  {
+    return this.board;
+  }
 }

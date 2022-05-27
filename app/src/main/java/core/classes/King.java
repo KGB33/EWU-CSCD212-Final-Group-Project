@@ -10,6 +10,8 @@ public class King extends BasePiece {
   private static char whiteIcon = '\u2654';
   private static char blackIcon = '\u265A';
 
+  private static final int score = 50;
+
   private char[] current = {'0', '0'};
 
   /**
@@ -60,7 +62,7 @@ public class King extends BasePiece {
     this.current[0] = file;
     this.current[1] = rank;
   }
-  // not done
+  // not efficient
   public ArrayList<Move> validMoves(Board b) throws ParseException {
     char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     Move toCheck;
@@ -77,5 +79,11 @@ public class King extends BasePiece {
       }
     }
     return moves;
+  }
+
+  @Override
+  public int getScore()
+  {
+    return score;
   }
 }

@@ -24,19 +24,19 @@ public class KingTest {
     assertEquals("♔", k.toString());
   }
 
-  @ParameterizedTest(name = "King isValidMove {0}{1} to {2}{3} (valid)")
+  @ParameterizedTest(name = "King isValidMove {0} (valid)")
   @CsvSource({"Kb2a1", "Kb2a2", "Kb2a3", "Kb2b1", "Kb2b3", "Kb2c1", "Kb2c2", "Kb2c3", "Ke1e2"})
   void testIsValidMove(String notationIn) throws ParseException {
-    Board b = new Board();
+    Board b = Board.createEmtpyBoard();
     Move m = Move.parse(notationIn);
     King k = new King(Color.WHITE);
     assertTrue(k.isValidMove(b, m));
   }
 
-  @ParameterizedTest(name = "King isValidMove {0}{1} to {2}{3} (invalid)")
+  @ParameterizedTest(name = "King isValidMove {0} (invalid)")
   @CsvSource({"Kb2a4", "Kb2h2", "Kb2h4"})
   void testIsInValidMove(String notationIn) throws ParseException {
-    Board b = new Board();
+    Board b = Board.createEmtpyBoard();
     Move m = Move.parse(notationIn);
     King k = new King(Color.WHITE);
     assertFalse(k.isValidMove(b, m));

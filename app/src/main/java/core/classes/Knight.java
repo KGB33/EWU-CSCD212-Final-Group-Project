@@ -10,6 +10,8 @@ public class Knight extends BasePiece {
   private static char whiteIcon = '\u2658';
   private static char blackIcon = '\u265E';
 
+  private static final int score = 30;
+
   private char[] current = {'0', '0'};
 
   public Knight(Color color) {
@@ -41,25 +43,28 @@ public class Knight extends BasePiece {
     this.current[0] = file;
     this.current[1] = rank;
   }
- // not done
-//  public ArrayList<Move> validMoves(Board b) throws ParseException {
-//
-//    Move toCheck;
-//    ArrayList<Move> moves = new ArrayList<>();
-//    int curFile;
-//
-//    for(int i = 0; i < files.length; i++){
-//      if (files[i] == this.current[0])
-//      {
-//        curFile = i;
-//      }
-//    }
-//
-//    try{
-//        try{
-//          Move.parse(Character.toString(curFile) + this.current[1], )
-//        }
-//    }
-//    return moves;
-//  }
+  // not efficient
+  public ArrayList<Move> validMoves(Board b) throws ParseException {
+    char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+    Move toCheck;
+    ArrayList<Move> moves = new ArrayList<>();
+    for (char file : files)
+    {
+      for (int i = 1; i <= 8; i++)
+      {
+        toCheck = Move.parse(Character.toString(current[0]) + current[1] + file + i);
+        if(isValidMove(b, toCheck))
+        {
+          moves.add(toCheck);
+        }
+      }
+    }
+    return moves;
+  }
+
+  @Override
+  public int getScore()
+  {
+    return score;
+  }
 }
