@@ -61,7 +61,7 @@ public class PawnTest {
   }
 
   @ParameterizedTest(name = "isValidMove (invalid) {0}")
-  @ValueSource(strings = {"a4a2", "a3a5", "a4a3", "c3xe5"})
+  @ValueSource(strings = {"a4a2", "a3a5", "a4a3", "c3xe5", "a2g5", "a2xg5", "a7g5"})
   void testIsInValidMove(String notationIn) throws ParseException {
     Board b = Board.createEmtpyBoard();
     b.setSquare('e', '5', new Pawn(Color.BLACK));
