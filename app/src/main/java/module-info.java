@@ -3,7 +3,7 @@ module chess {
     requires javafx.fxml;
 
     opens chess to javafx.fxml;
-    exports chess;/*
+    exports chess;
     exports gui;
-    opens gui to javafx.fxml;*/
+    opens gui to javafx.fxml;
 }

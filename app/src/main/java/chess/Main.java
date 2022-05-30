@@ -2,24 +2,12 @@ package chess;
 
 import core.classes.Board;
 import core.classes.Move;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import gui.ChessApplication;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
-public class Main extends Application {
-  @Override
-  public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/gui/ChessGui.fxml"));
-    Scene scene = new Scene(fxmlLoader.load(), 700, 600);
-    stage.setTitle("Hello!");
-    stage.setScene(scene);
-    stage.show();
-  }
+public class Main {
 
   public static void main(String[] args) {
     String key = "";
@@ -55,7 +43,7 @@ public class Main extends Application {
     }
     else {
       System.out.println("Starting GUI...");
-      launch();
+      ChessApplication.lauchGUI();
     }
   }
 }
