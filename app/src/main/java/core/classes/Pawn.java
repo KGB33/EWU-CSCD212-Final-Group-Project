@@ -60,6 +60,9 @@ public class Pawn extends BasePiece {
   }
 
   private boolean isValidTwoSquare(Board b, Move m) {
+    if (m.isCapture()) {
+      return false;
+    }
     int rankDelta = m.getRank() - m.getFromRank();
     int rankDir = Math.abs(rankDelta) / rankDelta;
     if (Math.abs(rankDelta) != 2) {
@@ -81,6 +84,11 @@ public class Pawn extends BasePiece {
 
   private boolean isValidEnPassant(Board b, Move m) {
     char expectedRank = this.color.equals(Color.WHITE) ? '5' : '4';
+    char moveToRank = this.color.equals(Color.WHITE) ? '6' : '3';
+
+    if (m.getRank() != moveToRank) {
+      return false;
+    }
 
     // toSquare must be empty and captured piece must exist & be a different
     // color & a pawn
