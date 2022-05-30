@@ -2,30 +2,17 @@ package chess;
 
 import core.classes.Board;
 import core.classes.Move;
-import java.io.IOException;
+import gui.ChessApplication;
+
 import java.text.ParseException;
 import java.util.Scanner;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-public class Main extends Application {
-  @Override
-  public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/gui/ChessGui.fxml"));
-    Scene scene = new Scene(fxmlLoader.load(), 700, 600);
-    stage.setTitle("Hello!");
-    stage.setScene(scene);
-    stage.show();
-  }
+public class Main {
 
   public static void main(String[] args) {
     String key = "";
-    for (String str : args) {
-      if (str.equals("cli")) {
-        key = str;
-      }
+    for(String str: args){
+      if(str.equals("cli")) { key = str; }
     }
     if (args.length >= 1 && key.equals("cli")) {
       System.out.println("Starting cli... ");
@@ -36,7 +23,7 @@ public class Main extends Application {
       do {
         System.out.println(b.toString());
         System.out.println(
-            "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
+                "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
         input = kb.nextLine().trim();
         if (input.equals("q")) {
           break;
@@ -53,9 +40,10 @@ public class Main extends Application {
 
       } while (true);
       kb.close();
-    } else {
+    }
+    else {
       System.out.println("Starting GUI...");
-      launch();
+      ChessApplication.lauchGUI();
     }
   }
 }

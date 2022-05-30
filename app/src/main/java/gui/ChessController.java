@@ -1,4 +1,4 @@
-package chess;
+package gui;
 
 import core.classes.*;
 import core.enums.Color;
@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 public class ChessController implements Initializable {
+  public static String imagePath = ChessController.class.getResource("/gui/images/").toString();
   core.classes.Board b = new Board();
 
   @FXML private TextField moveInput;
@@ -188,22 +189,23 @@ public class ChessController implements Initializable {
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         if (b.getSquare((char) (i + 97), (char) (j + 49)) == null) {
-          images[j][i].setImage(new Image("gui/images/blank.png"));
+          // images[j][i].setImage(new Image("gui/images/blank.png"));
+          images[j][i].setImage(new Image(ChessController.imagePath + "blank.png"));
         } else {
           String color;
           if (b.getSquare((char) (i + 97), (char) (j + 49)).getColor() == Color.BLACK) {
             color = "b";
           } else color = "w";
           if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof King) {
-            images[j][i].setImage(new Image("gui/images/" + color + "King.png"));
+            images[j][i].setImage(new Image(ChessController.imagePath + color + "King.png"));
           } else if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof Queen) {
-            images[j][i].setImage(new Image("gui/images/" + color + "Queen.png"));
+            images[j][i].setImage(new Image(ChessController.imagePath + color + "Queen.png"));
           } else if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof Bishop) {
-            images[j][i].setImage(new Image("gui/images/" + color + "Bishop.png"));
+            images[j][i].setImage(new Image(ChessController.imagePath + color + "Bishop.png"));
           } else if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof Knight) {
-            images[j][i].setImage(new Image("gui/images/" + color + "Knight.png"));
+            images[j][i].setImage(new Image(ChessController.imagePath + color + "Knight.png"));
           } else if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof Rook) {
-            images[j][i].setImage(new Image("gui/images/" + color + "Rook.png"));
+            images[j][i].setImage(new Image(ChessController.imagePath + color + "Rook.png"));
           }
         }
       }
