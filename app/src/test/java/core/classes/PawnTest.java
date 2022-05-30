@@ -63,6 +63,9 @@ public class PawnTest {
     b.move(Move.parse("d7d5"));
     // Next move is en-passant
     assertFalse(p.isValidMove(b, Move.parse("e5xd7")));
+    assertFalse(p.isValidMove(b, Move.parse("e5xd4")));
+    assertFalse(p.isValidMove(b, Move.parse("e5xd3")));
+    assertFalse(p.isValidMove(b, Move.parse("e5xd5")));
   }
 
   @ParameterizedTest(name = "isValidMove (valid) {0}")
