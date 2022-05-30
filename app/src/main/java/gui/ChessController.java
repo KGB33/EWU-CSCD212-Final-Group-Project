@@ -88,32 +88,38 @@ public class ChessController implements Initializable {
     char toFile = (char) (toCol + 97);
     int toRank = toRow + 1;
 
-    String input = "";
+    String fromStr = "";
+    String toStr = "" + toFile + toRank;
     Move m = null;
 
     if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof King) {
-      input = "K" + fromFile + fromRank;
+      fromStr = "K" + fromFile + fromRank;
     } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Queen) {
-      input = "Q" + fromFile + fromRank;
+      fromStr = "Q" + fromFile + fromRank;
     } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Bishop) {
-      input = "B" + fromFile + fromRank;
+      fromStr = "B" + fromFile + fromRank;
     } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Knight) {
-      input = "N" + fromFile + fromRank;
+      fromStr = "N" + fromFile + fromRank;
     } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Rook) {
-      input = "R" + fromFile + fromRank;
+      fromStr = "R" + fromFile + fromRank;
     } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Pawn) {
-      input = "" + fromFile + fromRank;
+      fromStr = "" + fromFile + fromRank;
     }
-    System.out.println(input);
+    /*System.out.println(input);
     input = input + toFile + toRank;
-    System.out.println(input);
-
-    try {
-      m = Move.parse(input);
-    } catch (ParseException e) {
-      e.printStackTrace();
+    System.out.println(input);*/
+    String[] moves = buildMoves(fromStr, toStr);
+    int count = 0;
+    boolean moved = false;
+    while(count < moves.length && !moved) {
+      try {
+        m = Move.parse(moves[count]);
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
+      moved = b.move(m);
+      count++;
     }
-    b.move(m);
     updateBoard();
   }
 
@@ -150,16 +156,22 @@ public class ChessController implements Initializable {
       return;
     }
     piece.setEffect(GREEN);
+    int count = 0;
     for (char i = 97; i < 105; i++) {
       for (int j = 1; j < 9; j++) {
-        input = from + i + j;
-        try {
-          preview = Move.parse(input);
-        } catch (ParseException e) {
-          e.printStackTrace();
-        }
-        if (b.getSquare((char) (col + 97), (char) (row + 49)).isValidMove(b, preview)) {
-          images[j - 1][i - 97].setEffect(RED);
+        count = 0;
+        String to = "" + i + j;
+        String[] moves = buildMoves(from, to);
+        while (count < moves.length) {
+          try {
+            preview = Move.parse(moves[count]);
+          } catch (ParseException e) {
+            e.printStackTrace();
+          }
+          if (b.getSquare((char) (col + 97), (char) (row + 49)).isValidMove(b, preview)) {
+            images[j - 1][i - 97].setEffect(RED);
+          }
+          count++;
         }
       }
     }
@@ -217,6 +229,11 @@ public class ChessController implements Initializable {
       }
     }
     System.out.println(b.toString());
+  }
+  public String[] buildMoves(String from, String to){
+    String[] moves = new String[]{from + "x" + to, from + to};
+
+    return moves;
   }
 
   @Override
