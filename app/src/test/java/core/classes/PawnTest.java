@@ -51,7 +51,7 @@ public class PawnTest {
     assertTrue(p.isValidMove(b, Move.parse("e5xd6")));
   }
 
-    @Test
+  @Test
   void testEnPassantMovesToCorrectRank() throws ParseException {
     Board b = Board.createEmtpyBoard();
     Pawn p = new Pawn(Color.WHITE);
@@ -80,7 +80,8 @@ public class PawnTest {
   @ParameterizedTest(name = "isValidMove (invalid) {0}")
   @ValueSource(
       strings = {
-        "a4a2", "a3a5", "a4a3", "c3xe5", "a2g5", "a2xg5", "a7g5", "a2b3", "a2c3", "a2c4", "a2f2", "g2xh4"
+        "a4a2", "a3a5", "a4a3", "c3xe5", "a2g5", "a2xg5", "a7g5", "a2b3", "a2c3", "a2c4", "a2f2",
+        "g2xh4"
       })
   void testIsInValidMove(String notationIn) throws ParseException {
     Board b = Board.createEmtpyBoard();
