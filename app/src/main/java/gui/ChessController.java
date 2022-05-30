@@ -30,11 +30,13 @@ public class ChessController implements Initializable {
 
   private ImageView[][] images = new ImageView[8][8];
 
+  //Initial setup of images 2d array containing all the image tiles for the gui
   @FXML
   protected void imageArraySetup() {
     Integer row = 0;
     Integer col = 0;
     int count = 0;
+    //Populates array with each image in the gridpane
     for (Node n : BoardPane.getChildren()) {
       if (count < 64) {
         row = BoardPane.getRowIndex(n);
@@ -47,24 +49,34 @@ public class ChessController implements Initializable {
     }
   }
 
+  //Selects a piece square
   @FXML
   protected void selectPiece(MouseEvent mouseEvent) {
     oldSelected = selected;
     selected = (ImageView) mouseEvent.getSource();
+
+    //Allows a new piece to be selected or a piece to be deselected by clicking a blank space
     if (selected.getEffect() != RED) {
+      //Clears board of any previous move previews
       for (ImageView[] image : images) {
         for (ImageView i : image) {
           i.setEffect(null);
         }
       }
 
+      //Previews the moves of the selected piece
       previewMoves(selected);
-    } else {
+    }
+    //A piece has already been selected and a red space(valid move) has been clicked. Selected piece moved to clicked space
+    else {
       movePiece(oldSelected, selected);
     }
   }
 
+  //Moves a selected piece from one square to another.
   protected void movePiece(ImageView from, ImageView to) {
+    //Initializing information needed to move. Where the piece is from and where it's going
+    //Each variable has to be checked for null, when getting column or row 0, null is returned instead of 0 for some reason
     Integer fromRow = BoardPane.getRowIndex(from);
     if (fromRow == null) {
       fromRow = 0;
@@ -83,31 +95,35 @@ public class ChessController implements Initializable {
     if (toCol == null) {
       toCol = 0;
     }
+
+    //Converting col/row to rank/file
+    //Col + 97 converts 0-7 int to a-h char
+    //Row + 49 coverts 0-7 int to 1-8 char
     char fromFile = (char) (fromCol + 97);
-    int fromRank = fromRow + 1;
+    char fromRank = (char) (fromRow + 49);
     char toFile = (char) (toCol + 97);
-    int toRank = toRow + 1;
+    char toRank = (char) (toRow + 49);
 
     String fromStr = "";
     String toStr = "" + toFile + toRank;
     Move m = null;
 
-    if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof King) {
+    //Building from portion of the notions based on type of piece selected
+    if (b.getSquare(fromFile, fromRank) instanceof King) {
       fromStr = "K" + fromFile + fromRank;
-    } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Queen) {
+    } else if (b.getSquare(fromFile, fromRank) instanceof Queen) {
       fromStr = "Q" + fromFile + fromRank;
-    } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Bishop) {
+    } else if (b.getSquare(fromFile, fromRank) instanceof Bishop) {
       fromStr = "B" + fromFile + fromRank;
-    } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Knight) {
+    } else if (b.getSquare(fromFile, fromRank) instanceof Knight) {
       fromStr = "N" + fromFile + fromRank;
-    } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Rook) {
+    } else if (b.getSquare(fromFile, fromRank) instanceof Rook) {
       fromStr = "R" + fromFile + fromRank;
-    } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Pawn) {
+    } else if (b.getSquare(fromFile, fromRank) instanceof Pawn) {
       fromStr = "" + fromFile + fromRank;
     }
-    /*System.out.println(input);
-    input = input + toFile + toRank;
-    System.out.println(input);*/
+
+    //Building and trying all possible moves going from 'fromStr' to 'toStr'
     String[] moves = buildMoves(fromStr, toStr);
     int count = 0;
     boolean moved = false;
@@ -123,8 +139,10 @@ public class ChessController implements Initializable {
     updateBoard();
   }
 
+  //Previews all valid moves of a selected piece
   @FXML
   protected void previewMoves(ImageView piece) {
+    //Pretty much the same initial processes as movePiece
     String from = "";
     String input = "";
     Move preview = null;
@@ -138,38 +156,44 @@ public class ChessController implements Initializable {
       col = 0;
     }
     char file = (char) (col + 97);
-    int rank = row + 1;
+    char rank = (char) (row + 49);
 
-    if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof King) {
+    if (b.getSquare(file, rank) instanceof King) {
       from = "K" + file + rank;
-    } else if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof Queen) {
+    } else if (b.getSquare(file, rank) instanceof Queen) {
       from = "Q" + file + rank;
-    } else if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof Bishop) {
+    } else if (b.getSquare(file, rank) instanceof Bishop) {
       from = "B" + file + rank;
-    } else if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof Knight) {
+    } else if (b.getSquare(file, rank) instanceof Knight) {
       from = "N" + file + rank;
-    } else if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof Rook) {
+    } else if (b.getSquare(file, rank) instanceof Rook) {
       from = "R" + file + rank;
-    } else if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof Pawn) {
+    } else if (b.getSquare(file, rank) instanceof Pawn) {
       from = "" + file + rank;
     } else {
       return;
     }
+
+    //Highlights selected piece in green
     piece.setEffect(GREEN);
-    int count = 0;
+    int count;
+    //Loops through the whole board and checks if the selected piece can move to each space
     for (char i = 97; i < 105; i++) {
       for (int j = 1; j < 9; j++) {
         count = 0;
         String to = "" + i + j;
         String[] moves = buildMoves(from, to);
+        //Checks each potential move until a move is valid. If no move is found, nothing is done.
         while (count < moves.length) {
           try {
             preview = Move.parse(moves[count]);
           } catch (ParseException e) {
             e.printStackTrace();
           }
+          //If the piece can move to the square, it is highlighted in red on the gui board
           if (b.getSquare((char) (col + 97), (char) (row + 49)).isValidMove(b, preview)) {
             images[j - 1][i - 97].setEffect(RED);
+            break;
           }
           count++;
         }
@@ -177,6 +201,8 @@ public class ChessController implements Initializable {
     }
   }
 
+  //Allows movement through manual notation entry. Will most likely be deleted when the project is finished.
+  //Gets input from a text field and sends the input when a button is pressed
   @FXML
   protected void sendInput() {
     String input = moveInput.getText().trim();
@@ -194,20 +220,26 @@ public class ChessController implements Initializable {
     updateBoard();
   }
 
+  //Updates the board after a move is sent with the current board state
   @FXML
   protected void updateBoard() {
+    //Un-highlights all the pieces
     for (ImageView[] image : images) {
       for (ImageView i : image) {
         i.setEffect(null);
       }
     }
 
+    //Gets each square and updates its image on the gui board to match its piece on the board
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
+        //No piece sets the tile to a blank image
+        //Has to be set to an image in order to be highlighted. Null images can't have their colors changed
         if (b.getSquare((char) (i + 97), (char) (j + 49)) == null) {
-          // images[j][i].setImage(new Image("gui/images/blank.png"));
           images[j][i].setImage(new Image(ChessController.imagePath + "blank.png"));
-        } else {
+        }
+        //Gets the piece's type and color, then set's its image appropriately
+        else {
           String color;
           if (b.getSquare((char) (i + 97), (char) (j + 49)).getColor() == Color.BLACK) {
             color = "b";
@@ -228,14 +260,18 @@ public class ChessController implements Initializable {
         }
       }
     }
+    //Prints the board to the console to make sure the gui board is accurate to the board
     System.out.println(b.toString());
   }
+
+  //Builds each variation of a move notation (checkmate, check, capture, plane move)
   public String[] buildMoves(String from, String to){
-    String[] moves = new String[]{from + "x" + to, from + to};
+    String[] moves = new String[]{from + "x" + to + "#", from + to + "#", from + "x" + to + "+", from + to  + "+", from + "x" + to, from + to};
 
     return moves;
   }
 
+  //Sets up the gui board
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     imageArraySetup();
