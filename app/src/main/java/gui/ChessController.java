@@ -101,6 +101,8 @@ public class ChessController implements Initializable {
       input = "N" + fromFile + fromRank;
     } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Rook) {
       input = "R" + fromFile + fromRank;
+    } else if (b.getSquare((char) (fromCol + 97), (char) (fromRow + 49)) instanceof Pawn) {
+      input = "" + fromFile + fromRank;
     }
     System.out.println(input);
     input = input + toFile + toRank;
@@ -142,6 +144,8 @@ public class ChessController implements Initializable {
       from = "N" + file + rank;
     } else if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof Rook) {
       from = "R" + file + rank;
+    } else if (b.getSquare((char) (col + 97), (char) (row + 49)) instanceof Pawn) {
+      from = "" + file + rank;
     } else {
       return;
     }
@@ -206,6 +210,8 @@ public class ChessController implements Initializable {
             images[j][i].setImage(new Image(ChessController.imagePath + color + "Knight.png"));
           } else if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof Rook) {
             images[j][i].setImage(new Image(ChessController.imagePath + color + "Rook.png"));
+          }else if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof Pawn) {
+            images[j][i].setImage(new Image(ChessController.imagePath + color + "Pawn.png"));
           }
         }
       }

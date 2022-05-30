@@ -35,10 +35,19 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'chess.Main'
+    mainModule = 'chess'
 }
-
+/*sourceSets.main {
+    java {
+        srcDir 'src/main/java' //assume that your source codes are inside this path
+    }
+    resources {
+        srcDirs = ['src/main/resources']
+        include = "/gui/images/bRook.png"
+    }
+}*/
 javafx {
-    version = '11.0.2'
+    version = '18.0.1'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
