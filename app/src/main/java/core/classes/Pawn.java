@@ -35,6 +35,9 @@ public class Pawn extends BasePiece {
     }
 
     int rankDelta = m.getRank() - m.getFromRank();
+    if (rankDelta == 0) {
+      return false;
+    }
     int rankDir = Math.abs(rankDelta) / rankDelta;
     // Check that the pawn moves the correct direction.
     if (this.color.equals(Color.WHITE) && !(rankDir > 0)) {
@@ -48,8 +51,12 @@ public class Pawn extends BasePiece {
       return false;
     }
 
+    int fileDelta = Math.abs(m.getFile() - m.getFromFile());
+    if (fileDelta > 1) {
+      return false;
+    }
     // Ensure that the pawn moved the right direction
-    return (!(m.isCapture() ^ Math.abs(m.getFile() - m.getFromFile()) == 1));
+    return (!(m.isCapture() ^ (fileDelta == 1)));
   }
 
   private boolean isValidTwoSquare(Board b, Move m) {
