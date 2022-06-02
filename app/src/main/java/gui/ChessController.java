@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -23,6 +24,8 @@ public class ChessController implements Initializable {
   @FXML private TextField moveInput;
   @FXML private Button moveButton;
   @FXML private GridPane BoardPane;
+  @FXML private TextArea wHistory;
+  @FXML private TextArea bHistory;
   private ImageView oldSelected;
   private ImageView selected = null;
   private final ColorAdjust RED = new ColorAdjust(0, .99, .4, 0);
@@ -136,6 +139,7 @@ public class ChessController implements Initializable {
       moved = b.move(m);
       count++;
     }
+    updateHistory(moves[count-1], toRank, toFile);
     updateBoard();
   }
 
@@ -217,6 +221,7 @@ public class ChessController implements Initializable {
     if (!b.move(m)) {
       System.out.println("Could not move the peice, please try again (q to quit).\n");
     }
+
     updateBoard();
   }
 
@@ -264,9 +269,16 @@ public class ChessController implements Initializable {
     System.out.println(b.toString());
   }
 
+  public void updateHistory(String move, char rank, char file){
+    if (b.getSquare(file, rank).getColor() == Color.BLACK) { bHistory.setText(bHistory.getText() + move + "\n");}
+    else { wHistory.setText(wHistory.getText() + move + "\n");}
+    //if(wHistory.getText() == null) { wHistory.setText(""); }
+
+  }
+
   //Builds each variation of a move notation (checkmate, check, capture, plane move)
   public String[] buildMoves(String from, String to){
-    String[] moves = new String[]{from + "x" + to + "#", from + to + "#", from + "x" + to + "+", from + to  + "+", from + "x" + to, from + to};
+    String[] moves = new String[]{from + "x" + to, from + to};
 
     return moves;
   }
@@ -274,6 +286,8 @@ public class ChessController implements Initializable {
   //Sets up the gui board
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    wHistory.setText("");
+    bHistory.setText("");
     imageArraySetup();
     updateBoard();
   }
