@@ -23,6 +23,7 @@ public abstract class BasePiece {
    */
   protected char icon;
   protected Color color;
+  protected String shortName;
 
   public boolean isValidMove(Board b, Move m) {
     // Cannot move to the square it is on.
@@ -39,6 +40,10 @@ public abstract class BasePiece {
 
   public String toString() {
     return String.valueOf(this.icon);
+  }
+
+  public String getShortName() {
+    return this.shortName;
   }
 
   public Color getColor() {

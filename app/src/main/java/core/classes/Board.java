@@ -11,6 +11,9 @@ public class Board {
   private BasePiece[][] board;
 
   private int turnNumber;
+  private boolean gameOver;
+  private Color winner;
+
   private ArrayList<Move> moves;
 
   private static final Map<Character, Integer> rank;
@@ -33,6 +36,8 @@ public class Board {
 
   public Board() {
     this.turnNumber = 0;
+    this.gameOver = false;
+    this.winner = null;
     this.board = Board.createBoard();
     this.moves = new ArrayList<Move>();
   }
@@ -139,17 +144,24 @@ public class Board {
     if (!p.isValidMove(this, m)) {
       return false;
     }
+
     // Special Case: En-passant doesn't capture on the end-square
     if ((p instanceof Pawn) && ((Pawn) p).isEnPassant(this, m)) {
       this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFile())] = null;
     }
     // FIXME: Pawn promtions don't do anything
+    BasePiece capturedPeice = this.getSquare(m.getFile(), m.getRank());
     this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
     this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())] = null;
 
     // Move the piece
     this.moves.add(m);
     this.turnNumber++;
+
+    if (capturedPeice != null && capturedPeice instanceof King) {
+      this.gameOver = true;
+      this.winner = capturedPeice.color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
+    }
     return true;
   }
 
@@ -174,6 +186,14 @@ public class Board {
 
   public int getTurnNumber() {
     return this.turnNumber;
+  }
+
+  public boolean isGameOver() {
+    return this.gameOver;
+  }
+
+  public Color getWinner() {
+    return this.winner;
   }
 
   public ArrayList<Move> getMoves() {

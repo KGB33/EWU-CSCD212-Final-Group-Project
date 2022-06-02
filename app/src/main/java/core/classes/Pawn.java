@@ -17,6 +17,7 @@ public class Pawn extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException("Color cannot be null.");
     }
+    this.shortName = "";
     this.color = color;
     this.icon = color.equals(Color.BLACK) ? Pawn.blackIcon : Pawn.whiteIcon;
   }

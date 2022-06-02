@@ -11,6 +11,7 @@ public class Bishop extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException();
     }
+    this.shortName = "B";
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Bishop.whiteIcon : Bishop.blackIcon;
   }
