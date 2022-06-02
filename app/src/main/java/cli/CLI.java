@@ -3,6 +3,7 @@ package cli;
 import core.classes.Board;
 import core.classes.Move;
 import core.enums.Color;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -10,13 +11,16 @@ import java.util.Scanner;
 public class CLI {
 
   public static void run(Scanner kb) {
+    CLI.run(kb, System.out);
+  }
+
+  public static void run(Scanner kb, PrintStream out) {
     Board b = new Board();
     Move m;
     String input;
     do {
-      System.out.println(b.toString());
-      System.out.println(
-          "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
+      out.println(b.toString());
+      out.println("\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
       input = kb.nextLine().trim();
       if (input.equals("q")) {
         kb.close();
@@ -25,11 +29,11 @@ public class CLI {
       try {
         m = Move.parse(input);
       } catch (ParseException e) {
-        System.out.println("Could not parse notation, please try again (q to quit).\n");
+        out.println("Could not parse notation, please try again (q to quit).\n");
         continue;
       }
       if (!b.move(m)) {
-        System.out.println("Could not move the piece, please try again (q to quit).\n");
+        out.println("Could not move the piece, please try again (q to quit).\n");
       }
 
     } while (!b.isGameOver());
@@ -37,9 +41,9 @@ public class CLI {
 
     String winningMessage =
         b.getWinner().equals(Color.WHITE) ? "    White Won!  " : "    Black Won!  ";
-    System.out.println("*=*=*=*=*=*=*=*=*=*=");
-    System.out.println("  Congratulations!  ");
-    System.out.println(winningMessage);
-    System.out.println("*=*=*=*=*=*=*=*=*=*=");
+    out.println("*=*=*=*=*=*=*=*=*=*=");
+    out.println("  Congratulations!  ");
+    out.println(winningMessage);
+    out.println("*=*=*=*=*=*=*=*=*=*=");
   }
 }
