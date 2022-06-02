@@ -7,12 +7,11 @@ public class Bishop extends BasePiece {
   private static char whiteIcon = '\u2657';
   private static char blackIcon = '\u265D';
 
-  private String shortName = "B";
-
   public Bishop(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
     }
+    this.shortName = "B";
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Bishop.whiteIcon : Bishop.blackIcon;
   }

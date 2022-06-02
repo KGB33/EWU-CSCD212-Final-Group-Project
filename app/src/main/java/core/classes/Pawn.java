@@ -7,8 +7,6 @@ public class Pawn extends BasePiece {
   private static char whiteIcon = '\u2659';
   private static char blackIcon = '\u265F';
 
-  private String shortName = "";
-
   /**
    * Creates a Pawn with the provided color.
    *
@@ -19,6 +17,7 @@ public class Pawn extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException("Color cannot be null.");
     }
+    this.shortName = "";
     this.color = color;
     this.icon = color.equals(Color.BLACK) ? Pawn.blackIcon : Pawn.whiteIcon;
   }

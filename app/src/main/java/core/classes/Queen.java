@@ -7,12 +7,11 @@ public class Queen extends BasePiece {
   private static char whiteIcon = '\u2655';
   private static char blackIcon = '\u265B';
 
-  private String shortName = "Q";
-
   public Queen(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
     }
+    this.shortName = "Q";
     this.color = color;
     if (color.equals(Color.BLACK)) {
       this.icon = Queen.blackIcon;
