@@ -44,8 +44,12 @@ public class ChessController implements Initializable {
       if (count < 64) {
         row = BoardPane.getRowIndex(n);
         col = BoardPane.getColumnIndex(n);
-        if (row == null) { row = 0; }
-        if (col == null) { col = 0; }
+        if (row == null) {
+          row = 0;
+        }
+        if (col == null) {
+          col = 0;
+        }
         images[7 - row][col] = (ImageView) n;
         count++;
       }
@@ -252,7 +256,9 @@ public class ChessController implements Initializable {
           String color;
           if (b.getSquare((char) (i + 97), (char) (j + 49)).getColor() == Color.BLACK) {
             color = "b";
-          } else { color = "w"; }
+          } else {
+            color = "w";
+          }
           if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof King) {
             images[j][i].setImage(new Image(ChessController.imagePath + color + "King.png"));
           } else if (b.getSquare((char) (i + 97), (char) (j + 49)) instanceof Queen) {
@@ -273,7 +279,7 @@ public class ChessController implements Initializable {
     System.out.println(b.toString());
   }
 
-  //Updates the move history of each player
+  // Updates the move history of each player
   public void updateHistory(String move, char rank, char file) {
     if (b.getSquare(file, rank).getColor() == Color.BLACK) {
       bHistory.setText(bHistory.getText() + move + "\n");

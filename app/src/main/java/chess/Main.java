@@ -1,8 +1,7 @@
 package chess;
 
-
-import gui.ChessApplication;
 import cli.CLI;
+import gui.ChessApplication;
 import java.util.Scanner;
 
 public class Main {
