@@ -2,6 +2,7 @@ package chess;
 
 import core.classes.Board;
 import core.classes.Move;
+import core.enums.Color;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -19,7 +20,8 @@ public class Main {
           "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
       input = kb.nextLine().trim();
       if (input.equals("q")) {
-        break;
+        kb.close();
+        return;
       }
       try {
         m = Move.parse(input);
@@ -28,10 +30,17 @@ public class Main {
         continue;
       }
       if (!b.move(m)) {
-        System.out.println("Could not move the peice, please try again (q to quit).\n");
+        System.out.println("Could not move the piece, please try again (q to quit).\n");
       }
 
-    } while (true);
+    } while (!b.isGameOver());
     kb.close();
+
+    String winningMessage =
+        b.getWinner().equals(Color.WHITE) ? "    White Won!  " : "    Black Won!  ";
+    System.out.println("*=*=*=*=*=*=*=*=*=*=");
+    System.out.println("  Congratulations!  ");
+    System.out.println(winningMessage);
+    System.out.println("*=*=*=*=*=*=*=*=*=*=");
   }
 }
