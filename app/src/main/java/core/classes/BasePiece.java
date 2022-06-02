@@ -40,7 +40,8 @@ public abstract class BasePiece {
   public String toString() {
     return String.valueOf(this.icon);
   }
-  public Color getColor(){
+
+  public Color getColor() {
     return this.color;
   }
 }
