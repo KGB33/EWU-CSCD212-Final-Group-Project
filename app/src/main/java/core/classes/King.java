@@ -17,6 +17,7 @@ public class King extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException("Cannot have a null color");
     }
+    this.shortName = "K";
     this.color = color;
     if (color.equals(Color.BLACK)) {
       this.icon = King.blackIcon;
@@ -39,8 +40,5 @@ public class King extends BasePiece {
       return false;
     }
     return true;
-    // return ((Math.abs(fromFile - toFile) <= 1 ^ Math.abs(fromRank - toRank)
-    // <= 1) ^ (Math.abs(fromFile - toFile) <= 1 && Math.abs(fromRank - toRank)
-    // <= 1));
   }
 }
