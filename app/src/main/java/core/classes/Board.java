@@ -1,8 +1,6 @@
 package core.classes;
 
-import core.enums.CheckmateStatus;
 import core.enums.Color;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +11,8 @@ public class Board {
   private BasePiece[][] board;
 
   private int turnNumber;
+  private boolean gameOver;
+  private Color winner;
   private ArrayList<Move> moves;
 
   private static final Map<Character, Integer> rank;
@@ -35,6 +35,8 @@ public class Board {
 
   public Board() {
     this.turnNumber = 0;
+    this.gameOver = false;
+    this.winner = null;
     this.board = Board.createBoard();
     this.moves = new ArrayList<Move>();
   }
@@ -141,42 +143,25 @@ public class Board {
     if (!p.isValidMove(this, m)) {
       return false;
     }
+
     // Special Case: En-passant doesn't capture on the end-square
     if ((p instanceof Pawn) && ((Pawn) p).isEnPassant(this, m)) {
       this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFile())] = null;
     }
     // FIXME: Pawn promtions don't do anything
+    BasePiece capturedPeice = this.getSquare(m.getFile(), m.getRank());
     this.board[Board.rank.get(m.getRank())][Board.file.get(m.getFile())] = p;
     this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())] = null;
-
-    BasePiece[][] tmpBoard = this.board.clone();
 
     // Move the piece
     this.moves.add(m);
     this.turnNumber++;
 
-    System.out.println(this.checkCheckmateStatus('a', '1'));
-    return true;
-  }
-
-  private CheckmateStatus checkCheckmateStatus(char kingFile, char kingRank) {
-    // walk every square on the board.
-    Move m;
-    for (char rank = 'a'; rank < 'h' + 1; rank++) {
-      for (char file = '1'; file < '8'; file++) {
-        BasePiece square = this.getSquare(file, rank);
-        try {
-          m = Move.parse(square.getShortName() + rank + file + "x" + kingRank + kingFile);
-        } catch (ParseException e) {
-          throw new IllegalArgumentException(e.toString());
-        }
-        if (square.isValidMove(this, m)) {
-          return CheckmateStatus.CHECK;
-        }
-      }
+    if (capturedPeice != null && capturedPeice instanceof King) {
+      this.gameOver = true;
+      this.winner = capturedPeice.color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
-
-    return CheckmateStatus.OK;
+    return true;
   }
 
   /**
@@ -200,6 +185,14 @@ public class Board {
 
   public int getTurnNumber() {
     return this.turnNumber;
+  }
+
+  public boolean isGameOver() {
+    return this.gameOver;
+  }
+
+  public Color getWinner() {
+    return this.winner;
   }
 
   public ArrayList<Move> getMoves() {
