@@ -7,6 +7,8 @@ public class Pawn extends BasePiece {
   private static char whiteIcon = '\u2659';
   private static char blackIcon = '\u265F';
 
+  private String shortName = "";
+
   /**
    * Creates a Pawn with the provided color.
    *

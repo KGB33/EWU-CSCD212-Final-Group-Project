@@ -7,6 +7,8 @@ public class King extends BasePiece {
   private static char whiteIcon = '\u2654';
   private static char blackIcon = '\u265A';
 
+  private String shortName = "K";
+
   /**
    * Constructor for a King.
    *

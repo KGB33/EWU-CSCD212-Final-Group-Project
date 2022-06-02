@@ -7,6 +7,8 @@ public class Queen extends BasePiece {
   private static char whiteIcon = '\u2655';
   private static char blackIcon = '\u265B';
 
+  private String shortName = "Q";
+
   public Queen(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
