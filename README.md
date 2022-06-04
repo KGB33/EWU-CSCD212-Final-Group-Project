@@ -20,22 +20,11 @@ Patterns:
     - [x] May 1st - Simple API
       - [x] CLI <strike> /(g)RPC/web </strike>
     - [x] May 1st - King navigation
-  - [ ] May 15th - Universal Chess Interface
-    - [ ]  Pluggable Open source engine
-  - [ ] May 15st - GUI - Interfaces with previously defined API.
-    - [ ] Board
-    - [ ] Navigation Buttons
-    - [ ] Move Preview / Validation
-  - [ ] May 15th - Remaining Pecies
-    - [ ] Capture
-    - [ ] Check/Checkmate
-    - [ ] Castle
-    - [ ] En Passant
-  - [ ] May 30th - Bonuses / Final refactoring
-    - [ ]  Custom AI depth engine.
-    - [ ]  Online Multiplayer
-    - [ ]  Chess variants
-      - [ ]  Chess 960
-      - [ ]  4-Person chess
+  - [ ] May 15th - Custom Chess Engine - [PR #20](https://github.com/KGB33/EWU-CSCD212-Final-Group-Project/pull/20)
+  - [ ] May 15st - GUI - [PR #12](https://github.com/KGB33/EWU-CSCD212-Final-Group-Project/pull/12)
+  - [x] May 15th - Remaining Pecies
+    - [x] Capture
+    - [x] Check/Checkmate
+    - [x] En Passant
 
 Github Repo is at: https://github.com/KGB33/EWU-CSCD212-Final-Group-Project
