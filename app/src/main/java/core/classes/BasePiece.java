@@ -57,6 +57,20 @@ public abstract class BasePiece {
     return new ArrayList<>();
   }
 
+  public boolean isCheck(Board b, char file, char rank) {
+    BasePiece toCheck = b.getSquare(file, rank);
+    if (toCheck == null) {
+      return false;
+    }
+    if(this.color == toCheck.getColor()) {
+      return false;
+    }
+
+    return (toCheck.getClass().equals(King.class));
+  }
+
+  public void canCheck(Board b, Move m) throws ParseException {}
+
   public String toString() {
     return String.valueOf(this.icon);
   }

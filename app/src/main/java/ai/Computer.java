@@ -14,6 +14,7 @@ public class Computer {
 
     private ArrayList<ArrayList<Move>> allMoves;
 
+
     final char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
     final char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
@@ -55,13 +56,21 @@ public class Computer {
 
     public void genAllMoves() throws ParseException
     {
+
         if (!this.allMoves.isEmpty()) {
             this.allMoves.clear();
         }
 
         for (BasePiece piece : pieces)
         {
-            allMoves.add(piece.validMoves(b));
+            ArrayList<Move> tmp = piece.validMoves(b);
+
+            for (Move m : tmp) {
+                piece.canCheck(b, m);
+            }
+            allMoves.add(tmp);
+
+
         }
     }
 
@@ -76,6 +85,7 @@ public class Computer {
         {
             for (Move move : pieceMoves)
             {
+
                 if (move.isCapture()) {
                     move.setMoveScore((b.getSquare(move.getFile(), move.getRank())).getScore());
                 }

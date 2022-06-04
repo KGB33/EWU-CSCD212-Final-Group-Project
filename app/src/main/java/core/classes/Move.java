@@ -77,12 +77,10 @@ public final class Move {
     // Get Check / checkmate from end of string
     if ('+' == notation.charAt(notation.length() - 1)) {
       m.isCheck = true;
-      m.moveScore = 50;
       notation = notation.substring(0, notation.length() - 1);
     }
     if ('#' == notation.charAt(notation.length() - 1)) {
       m.isCheckmate = true;
-      m.moveScore = 100;
       notation = notation.substring(0, notation.length() - 1);
     }
 
@@ -176,6 +174,9 @@ public final class Move {
 
   public boolean isCheck() {
     return isCheck;
+  }
+  public void setCheck(boolean n) {
+    this.isCheck = n;
   }
 
   public boolean isCheckmate() {
