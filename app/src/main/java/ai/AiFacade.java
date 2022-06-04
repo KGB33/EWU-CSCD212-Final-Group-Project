@@ -18,7 +18,10 @@ public class AiFacade {
 
 
     public void playTurn(Board newB) throws ParseException {
-        //add gameover check
+        if (newB.isGameOver()) {
+            return;
+        }
+
         ai.boardUpdate(newB);
         ai.getPieces();
         ai.genAllMoves();

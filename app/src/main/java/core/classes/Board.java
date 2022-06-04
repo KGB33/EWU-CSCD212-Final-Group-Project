@@ -11,6 +11,8 @@ public class Board {
   private BasePiece[][] board;
 
   private int turnNumber;
+  private boolean gameOver;
+  private Color winner;
   private ArrayList<Move> moves;
 
   private static final Map<Character, Integer> rank;
@@ -33,6 +35,8 @@ public class Board {
 
   public Board() {
     this.turnNumber = 0;
+    this.gameOver = false;
+    this.winner = null;
     this.board = Board.createBoard();
     this.moves = new ArrayList<Move>();
   }
@@ -200,5 +204,13 @@ public class Board {
   public BasePiece[][] getBoardMap()
   {
     return this.board;
+  }
+
+  public boolean isGameOver() {
+    return this.gameOver;
+  }
+
+  public Color getWinner() {
+    return this.winner;
   }
 }

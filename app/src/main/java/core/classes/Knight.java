@@ -47,15 +47,20 @@ public class Knight extends BasePiece {
   public ArrayList<Move> validMoves(Board b) throws ParseException {
     char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     Move toCheck;
+    Move toCheckTake;
     ArrayList<Move> moves = new ArrayList<>();
     for (char file : files)
     {
       for (int i = 1; i <= 8; i++)
       {
         toCheck = Move.parse(Character.toString(current[0]) + current[1] + file + i);
+        toCheckTake = Move.parse(Character.toString(current[0]) + current[1] + "x" + file + i);
         if(isValidMove(b, toCheck))
         {
           moves.add(toCheck);
+        }
+        else if (isValidMove(b, toCheckTake)) {
+          moves.add(toCheckTake);
         }
       }
     }

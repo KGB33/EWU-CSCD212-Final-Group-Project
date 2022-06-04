@@ -41,11 +41,10 @@ public class Pawn extends BasePiece {
             return isValidEnPassant(b, m);
         }
 
-        if((m.getRank() - m.getFromRank()) == 0) {
+        int rankDelta = m.getRank() - m.getFromRank();
+        if (rankDelta == 0) {
             return false;
         }
-        int rankDelta = m.getRank() - m.getFromRank();
-
         int rankDir = Math.abs(rankDelta) / rankDelta;
         // Check that the pawn moves the correct direction.
         if (this.color.equals(Color.WHITE) && !(rankDir > 0)) {
@@ -59,11 +58,18 @@ public class Pawn extends BasePiece {
             return false;
         }
 
+        int fileDelta = Math.abs(m.getFile() - m.getFromFile());
+        if (fileDelta > 1) {
+            return false;
+        }
         // Ensure that the pawn moved the right direction
-        return (!(m.isCapture() ^ Math.abs(m.getFile() - m.getFromFile()) == 1));
+        return (!(m.isCapture() ^ (fileDelta == 1)));
     }
 
     private boolean isValidTwoSquare(Board b, Move m) {
+        if (m.isCapture()) {
+            return false;
+        }
         int rankDelta = m.getRank() - m.getFromRank();
         int rankDir = Math.abs(rankDelta) / rankDelta;
         if (Math.abs(rankDelta) != 2) {
@@ -138,14 +144,19 @@ public class Pawn extends BasePiece {
         char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
         Move toCheck;
+        Move toCheckTake;
         ArrayList<Move> moves = new ArrayList<>();
 
         if (this.color == Color.WHITE) {
             for (char file : files) {
                 for (int i = 3; i <= 8; i++) {
                     toCheck = Move.parse(Character.toString(current[0]) + current[1] + file + i);
+                    toCheckTake = Move.parse(Character.toString(current[0]) + current[1] + "x" + file + i);
                     if (isValidMove(b, toCheck)) {
                         moves.add(toCheck);
+                    }
+                    else if (isValidMove(b, toCheckTake)) {
+                        moves.add(toCheckTake);
                     }
                 }
             }
@@ -155,8 +166,12 @@ public class Pawn extends BasePiece {
             for (char file : files) {
                 for (int i = 1; i <= 6; i++) {
                     toCheck = Move.parse(Character.toString(current[0]) + current[1] + file + i);
+                    toCheckTake = Move.parse(Character.toString(current[0]) + current[1] + "x" + file + i);
                     if (isValidMove(b, toCheck)) {
                         moves.add(toCheck);
+                    }
+                    else if (isValidMove(b, toCheckTake)) {
+                        moves.add(toCheckTake);
                     }
                 }
             }
