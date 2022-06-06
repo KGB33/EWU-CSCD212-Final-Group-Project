@@ -8,10 +8,16 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+
     id 'application'
 	id 'checkstyle'
     id 'com.github.sherter.google-java-format' version '0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.jlink' version '2.24.1'
 }
+
+group 'chess'
+version '1.0-SNAPSHOT'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -29,6 +35,40 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'chess.Main'
+    mainModule = 'chess'
+}
+/*sourceSets.main {
+    java {
+        srcDir 'src/main/java' //assume that your source codes are inside this path
+    }
+    resources {
+        srcDirs = ['src/main/resources']
+        include = "/gui/images/bRook.png"
+    }
+}*/
+javafx {
+    version = '18.0.1'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    implementation('org.controlsfx:controlsfx:11.1.0')
+    implementation('org.kordamp.ikonli:ikonli-javafx:12.2.0')
+
+    //testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    //testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    options = ['--strip-debug','--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'app'
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
 }
 
 compileJava.configure {
@@ -53,6 +93,7 @@ task ci {
 }
 
 test {
+    useJUnitPlatform()
     maxParallelForks 3
 }
 

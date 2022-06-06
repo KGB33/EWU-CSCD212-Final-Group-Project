@@ -13,6 +13,7 @@ public class Board {
   private int turnNumber;
   private boolean gameOver;
   private Color winner;
+
   private ArrayList<Move> moves;
 
   private static final Map<Character, Integer> rank;

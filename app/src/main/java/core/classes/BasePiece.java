@@ -47,6 +47,6 @@ public abstract class BasePiece {
   }
 
   public Color getColor() {
-    return color;
+    return this.color;
   }
 }
