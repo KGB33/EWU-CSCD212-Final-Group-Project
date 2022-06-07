@@ -8,9 +8,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,11 +20,12 @@ public class ChessController implements Initializable {
   public static String imagePath = ChessController.class.getResource("/gui/images/").toString();
   core.classes.Board b = new Board();
 
-  @FXML private TextField moveInput;
-  @FXML private Button moveButton;
   @FXML private GridPane BoardPane;
   @FXML private TextArea wHistory;
   @FXML private TextArea bHistory;
+  @FXML private Label winText;
+  private URL initURL;
+  private ResourceBundle initResource;
 
   private ImageView selected = null;
   private final ColorAdjust RED = new ColorAdjust(0, .99, .4, 0);
@@ -36,8 +36,8 @@ public class ChessController implements Initializable {
   // Initial setup of images 2d array containing all the image tiles for the gui
   @FXML
   protected void imageArraySetup() {
-    Integer row = 0;
-    Integer col = 0;
+    Integer row;
+    Integer col;
     int count = 0;
     // Populates array with each image in the gridpane
     for (Node n : BoardPane.getChildren()) {
@@ -59,25 +59,27 @@ public class ChessController implements Initializable {
   // Selects a piece square
   @FXML
   protected void selectPiece(MouseEvent mouseEvent) {
-    ImageView oldSelected = selected;
-    selected = (ImageView) mouseEvent.getSource();
+    if (!b.isGameOver()) {
+      ImageView oldSelected = selected;
+      selected = (ImageView) mouseEvent.getSource();
 
-    // Allows a new piece to be selected or a piece to be deselected by clicking a blank space
-    if (selected.getEffect() != RED) {
-      // Clears board of any previous move previews
-      for (ImageView[] image : images) {
-        for (ImageView i : image) {
-          i.setEffect(null);
+      // Allows a new piece to be selected or a piece to be deselected by clicking a blank space
+      if (selected.getEffect() != RED) {
+        // Clears board of any previous move previews
+        for (ImageView[] image : images) {
+          for (ImageView i : image) {
+            i.setEffect(null);
+          }
         }
-      }
 
-      // Previews the moves of the selected piece
-      previewMoves(selected);
-    }
-    // A piece has already been selected and a red space(valid move) has been clicked. Selected
-    // piece moved to clicked space
-    else {
-      movePiece(oldSelected, selected);
+        // Previews the moves of the selected piece
+        previewMoves(selected);
+      }
+      // A piece has already been selected and a red space(valid move) has been clicked. Selected
+      // piece moved to clicked space
+      else {
+        movePiece(oldSelected, selected);
+      }
     }
   }
 
@@ -153,8 +155,7 @@ public class ChessController implements Initializable {
   @FXML
   protected void previewMoves(ImageView piece) {
     // Pretty much the same initial processes as movePiece
-    String from = "";
-    String input = "";
+    String from;
     Move preview = null;
     Integer row = BoardPane.getRowIndex(piece);
     Integer col = BoardPane.getColumnIndex(piece);
@@ -168,68 +169,51 @@ public class ChessController implements Initializable {
     char file = (char) (col + 97);
     char rank = (char) (row + 49);
 
-    if (b.getSquare(file, rank) instanceof King) {
-      from = "K" + file + rank;
-    } else if (b.getSquare(file, rank) instanceof Queen) {
-      from = "Q" + file + rank;
-    } else if (b.getSquare(file, rank) instanceof Bishop) {
-      from = "B" + file + rank;
-    } else if (b.getSquare(file, rank) instanceof Knight) {
-      from = "N" + file + rank;
-    } else if (b.getSquare(file, rank) instanceof Rook) {
-      from = "R" + file + rank;
-    } else if (b.getSquare(file, rank) instanceof Pawn) {
-      from = "" + file + rank;
-    } else {
-      return;
-    }
+    if (b.getSquare(file, rank).getColor() == Color.WHITE && b.getTurnNumber() % 2 == 0
+        || b.getSquare(file, rank).getColor() == Color.BLACK && b.getTurnNumber() % 2 == 1) {
 
-    // Highlights selected piece in green
-    piece.setEffect(GREEN);
-    int count;
-    // Loops through the whole board and checks if the selected piece can move to each space
-    for (char i = 97; i < 105; i++) {
-      for (int j = 1; j < 9; j++) {
-        count = 0;
-        String to = "" + i + j;
-        String[] moves = buildMoves(from, to);
-        // Checks each potential move until a move is valid. If no move is found, nothing is done.
-        while (count < moves.length) {
-          try {
-            preview = Move.parse(moves[count]);
-          } catch (ParseException e) {
-            e.printStackTrace();
+      if (b.getSquare(file, rank) instanceof King) {
+        from = "K" + file + rank;
+      } else if (b.getSquare(file, rank) instanceof Queen) {
+        from = "Q" + file + rank;
+      } else if (b.getSquare(file, rank) instanceof Bishop) {
+        from = "B" + file + rank;
+      } else if (b.getSquare(file, rank) instanceof Knight) {
+        from = "N" + file + rank;
+      } else if (b.getSquare(file, rank) instanceof Rook) {
+        from = "R" + file + rank;
+      } else if (b.getSquare(file, rank) instanceof Pawn) {
+        from = "" + file + rank;
+      } else {
+        return;
+      }
+
+      // Highlights selected piece in green
+      piece.setEffect(GREEN);
+      int count;
+      // Loops through the whole board and checks if the selected piece can move to each space
+      for (char i = 97; i < 105; i++) {
+        for (int j = 1; j < 9; j++) {
+          count = 0;
+          String to = "" + i + j;
+          String[] moves = buildMoves(from, to);
+          // Checks each potential move until a move is valid. If no move is found, nothing is done.
+          while (count < moves.length) {
+            try {
+              preview = Move.parse(moves[count]);
+            } catch (ParseException e) {
+              e.printStackTrace();
+            }
+            // If the piece can move to the square, it is highlighted in red on the gui board
+            if (b.getSquare((char) (col + 97), (char) (row + 49)).isValidMove(b, preview)) {
+              images[j - 1][i - 97].setEffect(RED);
+              break;
+            }
+            count++;
           }
-          // If the piece can move to the square, it is highlighted in red on the gui board
-          if (b.getSquare((char) (col + 97), (char) (row + 49)).isValidMove(b, preview)) {
-            images[j - 1][i - 97].setEffect(RED);
-            break;
-          }
-          count++;
         }
       }
     }
-  }
-
-  // Allows movement through manual notation entry. Will most likely be deleted when the project is
-  // finished.
-  // Gets input from a text field and sends the input when a button is pressed
-  @FXML
-  protected void sendInput() {
-    String input = moveInput.getText().trim();
-    Move m = null;
-    moveInput.setText("");
-
-    try {
-      m = Move.parse(input);
-    } catch (ParseException e) {
-      System.out.println("Could not parse notation, please try again (q to quit).\n");
-    }
-    if (!b.move(m)) {
-      System.out.println("Could not move the peice, please try again (q to quit).\n");
-    }
-
-    updateBoard();
   }
 
   // Updates the board after a move is sent with the current board state
@@ -286,20 +270,30 @@ public class ChessController implements Initializable {
     } else {
       wHistory.setText(wHistory.getText() + move + "\n");
     }
-    // if(wHistory.getText() == null) { wHistory.setText(""); }
 
+    if (b.isGameOver()) {
+      winText.setText(b.getWinner().toString().toUpperCase() + " WINS!");
+    }
   }
 
   // Builds each variation of a move notation (checkmate, check, capture, plane move)
   public String[] buildMoves(String from, String to) {
-    String[] moves = new String[] {from + "x" + to, from + to};
 
-    return moves;
+    return new String[] {from + "x" + to, from + to};
+  }
+
+  @FXML
+  public void restart() {
+    initialize(initURL, initResource);
   }
 
   // Sets up the gui board
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    initURL = location;
+    initResource = resources;
+    b = new Board();
+    winText.setText("");
     wHistory.setText("");
     bHistory.setText("");
     imageArraySetup();
