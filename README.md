@@ -4,6 +4,37 @@ Group Members (Back Row 1):
   - Josh Pedersen
   - Malcolm Shepherd
 
+# Getting started
+
+## Running via Gradle
+
+```console
+$ gradle run -q --console=plain
+```
+
+For just the CLI include the following argument.
+
+```console
+$ gradle run -q --console=plain --args=cli
+```
+
+> Note: Make sure to use the correct gradle wrapper for your platform.
+> Unix - `./gradlew` Windows - `./gradlew.bat`
+
+Furthermore, JUnit and Checkstyle can be run via `gradle test` and `gradle check` respectively.
+All CI tasks can be run via `gradle ci`. 
+
+## Running via provided JARs
+
+The latest release can be accessed [here](https://github.com/KGB33/EWU-CSCD212-Final-Group-Project/releases/latest/). 
+the `app-fat-<version>.jar` includes the dependencies. To run just the cli provide the `cli` argument.
+
+```console
+java -jar $JAR_FILE
+java -jar $JAR_FILE cli
+```
+
+
 # Project Summary
 
 We are going to create a chess game. 
