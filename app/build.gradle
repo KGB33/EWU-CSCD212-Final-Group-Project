@@ -20,10 +20,10 @@ def getVersionName = {
 	exec {
 		workingDir = '../'
 		commandLine 'git'
-		args = ['rev-list', '--all']
+		args = ['describe', '--tags']
 		standardOutput = stdout 
 	}
-	return "11-ref-" + stdout.toString().trim().substring(0,7)
+	return stdout.toString().trim()
 }
 
 group 'chess'
