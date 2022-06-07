@@ -1,0 +1,45 @@
+name: Release Jar
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: "major|minor|patch|release|prerel"
+        default: "patch"
+        required: true
+      release_version:
+        description: "Optional release version, e.g. 0.2.0"
+        required: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Run CI with Gradle
+      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      with:
+        arguments: ci
+
+    - name: Build Jars 
+      id: build
+      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      with:
+        arguments: fatJar
+    
+    - name: Publish release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          app/build/libs/*.jar
+
+
