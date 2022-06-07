@@ -2,8 +2,6 @@ package core.classes;
 
 import core.enums.Color;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 /** Queen */
 public class Queen extends BasePiece {
   private static char whiteIcon = '\u2655';
@@ -62,10 +60,8 @@ public class Queen extends BasePiece {
     this.current[1] = rank;
   }
 
-
   @Override
-  public int getScore()
-  {
+  public int getScore() {
     return score;
   }
 }

@@ -2,9 +2,6 @@ package core.classes;
 
 import core.enums.Color;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-
 /** Represents a King chess piece. */
 public class King extends BasePiece {
   private static char whiteIcon = '\u2654';
@@ -63,10 +60,8 @@ public class King extends BasePiece {
     this.current[1] = rank;
   }
 
-
   @Override
-  public int getScore()
-  {
+  public int getScore() {
     return score;
   }
 }

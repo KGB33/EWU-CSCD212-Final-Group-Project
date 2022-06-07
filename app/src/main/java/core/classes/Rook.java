@@ -2,9 +2,6 @@ package core.classes;
 
 import core.enums.Color;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-
 /** Rook */
 public class Rook extends BasePiece {
   private static char whiteIcon = '\u2656';
@@ -57,10 +54,8 @@ public class Rook extends BasePiece {
     this.current[1] = rank;
   }
 
-
   @Override
-  public int getScore()
-  {
+  public int getScore() {
     return score;
   }
 }

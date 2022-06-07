@@ -175,6 +175,7 @@ public final class Move {
   public boolean isCheck() {
     return isCheck;
   }
+
   public void setCheck(boolean n) {
     this.isCheck = n;
   }
@@ -203,13 +204,11 @@ public final class Move {
     return isKingSideCastle;
   }
 
-  public int getMoveScore()
-  {
+  public int getMoveScore() {
     return this.moveScore;
   }
 
-  public void setMoveScore(int score)
-  {
+  public void setMoveScore(int score) {
     this.moveScore = score;
   }
 }

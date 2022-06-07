@@ -2,9 +2,6 @@ package core.classes;
 
 import core.enums.Color;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-
 /** Bishop */
 public class Bishop extends BasePiece {
   private static char whiteIcon = '\u2657';
@@ -21,7 +18,6 @@ public class Bishop extends BasePiece {
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Bishop.whiteIcon : Bishop.blackIcon;
     this.current = getCurrent();
-
   }
 
   @Override
@@ -59,10 +55,8 @@ public class Bishop extends BasePiece {
     this.current[1] = rank;
   }
 
-
   @Override
-  public int getScore()
-  {
+  public int getScore() {
     return score;
   }
 }

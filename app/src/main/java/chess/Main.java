@@ -11,4 +11,3 @@ public class Main {
     CLI.run(kb);
   }
 }
-

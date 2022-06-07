@@ -6,9 +6,7 @@ import core.classes.Move;
 import core.enums.Color;
 import java.io.PrintStream;
 import java.text.ParseException;
-import java.util.Objects;
 import java.util.Scanner;
-import ai.Computer;
 
 /** Entry point for the chess app. */
 public class CLI {
@@ -26,15 +24,16 @@ public class CLI {
     do {
       System.out.print("Please choose a game type.\n1) Two player\n2) Vs. AI\n3) Quit\n");
       gameType = kb.nextInt();
-    }while (gameType < 1 || gameType > 3);
+    } while (gameType < 1 || gameType > 3);
 
     if (gameType == 1) {
       do {
         out.println(b.toString());
-        out.println("\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
+        out.println(
+            "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
         do {
           input = kb.nextLine().trim();
-        }while(input.equals(""));
+        } while (input.equals(""));
         if (input.equals("q")) {
           kb.close();
           return;
@@ -50,9 +49,7 @@ public class CLI {
         }
 
       } while (!b.isGameOver());
-    }
-
-    else if (gameType == 2) {
+    } else if (gameType == 2) {
       input = kb.nextLine().trim();
       AiFacade ai = new AiFacade(b);
       boolean moved;
@@ -61,10 +58,11 @@ public class CLI {
         do {
           moved = false;
           System.out.println(b.toString());
-          out.println("\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
+          out.println(
+              "\n\nPlease enter a move in Algebraic Notation - including the from rank/file  ");
           do {
             input = kb.nextLine().trim();
-          }while(input.equals(""));
+          } while (input.equals(""));
           if (input.equals("q")) {
             kb.close();
             return;
@@ -77,11 +75,10 @@ public class CLI {
           }
           if (!b.move(m)) {
             System.out.println("Could not move the piece, please try again (q to quit).\n");
-          }
-          else {
+          } else {
             moved = true;
           }
-        }while (!moved);
+        } while (!moved);
 
         System.out.println(b.toString() + "\n\n AI playing \n");
 
@@ -91,9 +88,7 @@ public class CLI {
           System.out.println("AI move failed");
         }
       } while (!b.isGameOver());
-    }
-
-    else {
+    } else {
       kb.close();
       return;
     }

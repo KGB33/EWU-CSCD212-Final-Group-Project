@@ -1,7 +1,6 @@
 package core.classes;
 
 import core.enums.Color;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public abstract class BasePiece {
     // moving to an empty square.
     BasePiece toSquare = b.getSquare(m.getFile(), m.getRank());
     return (!m.isCapture() && toSquare == null)
-            || (m.isCapture() && toSquare != null && !toSquare.color.equals(this.color));
+        || (m.isCapture() && toSquare != null && !toSquare.color.equals(this.color));
   }
 
   public char[] getCurrent() {
@@ -51,7 +50,7 @@ public abstract class BasePiece {
 
   public void setCurrent(char file, char rank) {}
 
-  //add get rank and file location
+  // add get rank and file location
 
   public ArrayList<Move> validMoves(Board b) throws ParseException {
     return new ArrayList<>();
@@ -62,7 +61,7 @@ public abstract class BasePiece {
     if (toCheck == null) {
       return false;
     }
-    if(this.color == toCheck.getColor()) {
+    if (this.color == toCheck.getColor()) {
       return false;
     }
 
@@ -75,12 +74,11 @@ public abstract class BasePiece {
     return String.valueOf(this.icon);
   }
 
-  public Color getColor()
-  {
+  public Color getColor() {
     return this.color;
   }
-  public int getScore()
-  {
+
+  public int getScore() {
     return this.score;
   }
 }

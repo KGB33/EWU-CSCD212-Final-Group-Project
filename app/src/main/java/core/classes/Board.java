@@ -153,7 +153,7 @@ public class Board {
   public boolean move(final Move m) {
     // Find the piece that's being be moved
     final BasePiece p =
-            this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())];
+        this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())];
     if (p == null) {
       return false;
     }
@@ -200,6 +200,7 @@ public class Board {
     }
     return output;
   }
+
   public int getTurnNumber() {
     return this.turnNumber;
   }
@@ -208,8 +209,7 @@ public class Board {
     return this.moves;
   }
 
-  public BasePiece[][] getBoardMap()
-  {
+  public BasePiece[][] getBoardMap() {
     return this.board;
   }
 
