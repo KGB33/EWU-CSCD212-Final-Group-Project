@@ -1,7 +1,6 @@
 name: Release Jar
 
 on:
-  on:
   release:
     types: [created]
   workflow_dispatch:
