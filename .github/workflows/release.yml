@@ -34,7 +34,7 @@ jobs:
       id: build
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
-        arguments: fatJar
+        arguments: jar fatJar
     
     - name: Publish release
       uses: softprops/action-gh-release@v1
