@@ -9,12 +9,6 @@ import java.lang.Math;
 
 public class Computer {
 
-    public ArrayList<BasePiece> pieces;
-    private BasePiece[][] map;
-
-    private ArrayList<ArrayList<Move>> allMoves;
-
-
     final char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
     final char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
@@ -22,18 +16,12 @@ public class Computer {
 
     public Computer(Board b)
     {
-        pieces = new ArrayList<BasePiece>(16);
-        allMoves = new ArrayList<ArrayList<Move>>(1000);
         this.b = b;
-        this.map = b.getBoardMap();
-        getPieces();
     }
 
-    public void getPieces()
+    public ArrayList<BasePiece> getPieces()
     {
-        if (!this.pieces.isEmpty()) {
-            this.pieces.clear();
-        }
+        ArrayList<BasePiece> pieces = new ArrayList<>(16);
 
         for (char file : files)
         {
@@ -47,34 +35,11 @@ public class Computer {
                 }
             }
         }
+
+        return pieces;
     }
 
-    public void boardUpdate(Board b)
-    {
-        this.map = b.getBoardMap();
-    }
-
-    public void genAllMoves() throws ParseException
-    {
-
-        if (!this.allMoves.isEmpty()) {
-            this.allMoves.clear();
-        }
-
-        for (BasePiece piece : pieces)
-        {
-            ArrayList<Move> tmp = piece.validMoves(b);
-
-            for (Move m : tmp) {
-                piece.canCheck(b, m);
-            }
-            allMoves.add(tmp);
-
-
-        }
-    }
-
-    public Move bestMove()
+    public Move bestMove(ArrayList<ArrayList<Move>> allMoves)
     {
         int bestMoveScore = 0;
         Move bestMove = null;
@@ -109,10 +74,5 @@ public class Computer {
         }
 
         return bestMove;
-    }
-    public void playMove()
-    {
-        Move m = bestMove();
-        b.move(m);
     }
 }
