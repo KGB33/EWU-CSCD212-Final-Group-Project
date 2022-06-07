@@ -20,10 +20,10 @@ def getVersionName = {
 	exec {
 		workingDir = '../'
 		commandLine 'git'
-		args = ['describe', '--tags']
+		args = ['rev-list', '--all']
 		standardOutput = stdout 
 	}
-	return stdout.toString().trim()
+	return "11-ref-" + stdout.toString().trim().substring(0,7)
 }
 
 group 'chess'
@@ -50,7 +50,7 @@ task fatJar(type: Jar) {
 	manifest {
         attributes 'Main-Class': 'chess.Main'
     }
-	baseName = project.name + '-fat'
+	archiveBaseName = project.name + '-fat'
 	from {
 		duplicatesStrategy = 'include'
 		configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
