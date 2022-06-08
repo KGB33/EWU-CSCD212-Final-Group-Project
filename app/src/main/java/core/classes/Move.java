@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  *
  * <p>Note: Consider turning Parse method into a MoveFactory
  */
-public final class Move {
+public class Move {
   // Consider changing rank, file, and movedPiece to Enums.
   private char rank;
   private char file;
@@ -33,6 +33,9 @@ public final class Move {
   // Move score
   private int moveScore = 0;
 
+  // Surrender Move
+  private boolean isSurrender = false;
+
   /** All possible characters in algebraic notation. */
   private static final Set<Character> validCharacters =
       // file     +  ranks     + pieces  + other
@@ -43,6 +46,12 @@ public final class Move {
 
   /** Default constructor is private, use Move.parse(String notation) to generate a move. */
   private Move() {}
+
+  public static Move surrender() {
+    Move m = new Move();
+    m.isSurrender = true;
+    return m;
+  }
 
   /**
    * Parses a Move from an algebraic notation string.
@@ -202,6 +211,10 @@ public final class Move {
 
   public boolean isKingSideCastle() {
     return isKingSideCastle;
+  }
+
+  public boolean isSurrender() {
+    return this.isSurrender;
   }
 
   public int getMoveScore() {

@@ -152,6 +152,10 @@ public class Board {
    * @return True if the move is valid, False otherwise
    */
   public boolean move(final Move m) {
+    if (m.isSurrender()) {
+      this.surrenderMove();
+      return true;
+    }
     // Find the piece that's being be moved
     final BasePiece p =
         this.board[Board.rank.get(m.getFromRank())][Board.file.get(m.getFromFile())];
@@ -182,6 +186,11 @@ public class Board {
     }
     p.setCurrent(m.getFile(), m.getRank());
     return true;
+  }
+
+  private void surrenderMove() {
+    this.winner = this.turnNumber % 2 == 0 ? Color.BLACK : Color.WHITE;
+    this.gameOver = true;
   }
 
   /**
