@@ -104,4 +104,10 @@ public class PawnTest {
     Pawn p = new Pawn(Color.WHITE);
     assertTrue(p.isValidMove(b, m));
   }
+
+  @Test
+  void testGetScore() {
+    final Pawn p = new Pawn(Color.WHITE);
+    assertEquals(10, p.getScore());
+  }
 }
