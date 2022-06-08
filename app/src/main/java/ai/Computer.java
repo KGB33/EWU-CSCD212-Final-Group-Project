@@ -1,5 +1,6 @@
 package ai;
 
+import ai.pieces.*;
 import core.classes.*;
 import core.classes.Board;
 import core.enums.Color;
@@ -10,14 +11,31 @@ public class Computer {
   final char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
   final char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
+  ArrayList<AiBasePiece> aiBasePieces;
+
   private final Board b;
 
   public Computer(Board b) {
     this.b = b;
   }
 
-  public ArrayList<BasePiece> getPieces() {
-    ArrayList<BasePiece> pieces = new ArrayList<>(16);
+  public void initPieces() {
+    aiBasePieces.add(new AiRook());
+    aiBasePieces.get(0).setCurrent('a', '8');
+    new AiKnight().setCurrent('b', '8');
+    new AiBishop().setCurrent('c', '8');
+    new AiKing().setCurrent('e', '8');
+    new AiQueen().setCurrent('d', '8');
+    new AiBishop().setCurrent('f', '8');
+    new AiKnight().setCurrent('g', '8');
+    new AiRook().setCurrent('h', '8');
+    for (char file : files) {
+      new AiPawn().setCurrent(file, '7');
+    }
+  }
+
+  public ArrayList<AiBasePiece> getPieces() {
+    ArrayList<AiBasePiece> pieces = new ArrayList<>(16);
 
     for (char file : files) {
       for (char rank : ranks) {
@@ -25,7 +43,15 @@ public class Computer {
           continue;
         }
         if (((b.getSquare(file, rank)).getColor()).equals(Color.BLACK)) {
-          pieces.add(b.getSquare(file, rank));
+          switch ((b.getSquare(file, rank)).toString()) {
+            case "♛":
+              pieces.add(AiQueen);
+            case "♚":
+            case "♝":
+            case "♞":
+            case "♜":
+            case "♟":
+          }
         }
       }
     }

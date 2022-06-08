@@ -52,6 +52,7 @@ public class CLI {
     } else if (gameType == 2) {
       input = kb.nextLine().trim();
       AiFacade ai = new AiFacade(b);
+      ai.setUp();
       boolean moved;
       System.out.println("You are playing as white\n");
       do {

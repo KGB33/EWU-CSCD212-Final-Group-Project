@@ -7,10 +7,6 @@ public class Queen extends BasePiece {
   private static char whiteIcon = '\u2655';
   private static char blackIcon = '\u265B';
 
-  private static final int score = 80;
-
-  private char[] current = {'0', '0'};
-
   public Queen(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
@@ -22,7 +18,6 @@ public class Queen extends BasePiece {
     if (color.equals(Color.WHITE)) {
       this.icon = Queen.whiteIcon;
     }
-    this.current = getCurrent();
   }
 
   @Override
@@ -47,21 +42,5 @@ public class Queen extends BasePiece {
       }
     }
     return true;
-  }
-
-  @Override
-  public char[] getCurrent() {
-    return this.current;
-  }
-
-  @Override
-  public void setCurrent(char file, char rank) {
-    this.current[0] = file;
-    this.current[1] = rank;
-  }
-
-  @Override
-  public int getScore() {
-    return score;
   }
 }

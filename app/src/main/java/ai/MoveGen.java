@@ -1,8 +1,12 @@
 package ai;
 
+import ai.pieces.AiBasePiece;
 import core.classes.BasePiece;
 import core.classes.Board;
+import core.classes.King;
 import core.classes.Move;
+import core.enums.Color;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -14,7 +18,7 @@ public class MoveGen {
     this.b = b;
   }
 
-  public ArrayList<Move> validMoves(Board b, BasePiece piece) throws ParseException {
+  public ArrayList<Move> validMoves(Board b, AiBasePiece piece) throws ParseException {
     char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
     char[] current = piece.getCurrent();
@@ -37,7 +41,7 @@ public class MoveGen {
     return moves;
   }
 
-  public void canCheck(Board b, Move m, BasePiece piece) throws ParseException {
+  public void canCheck(Board b, Move m, AiBasePiece piece) throws ParseException {
     char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
 
@@ -49,7 +53,7 @@ public class MoveGen {
 
     for (char file : files) {
       for (char rank : ranks) {
-        if (piece.isCheck(b, file, rank)) {
+        if (isCheck(b, file, rank)) {
           toCheck = Move.parse(String.valueOf(m.getFile()) + m.getRank() + "x" + file + rank);
           if (piece.isValidMove(b, toCheck)) {
             m.setCheck(true);
@@ -60,10 +64,22 @@ public class MoveGen {
     }
   }
 
-  public ArrayList<ArrayList<Move>> genAllMoves(ArrayList<BasePiece> pieces) throws ParseException {
+  public boolean isCheck(Board b, char file, char rank) {
+    BasePiece toCheck = b.getSquare(file, rank);
+    if (toCheck == null) {
+      return false;
+    }
+    if (Color.BLACK == toCheck.getColor()) {
+      return false;
+    }
+
+    return (toCheck.getClass().equals(King.class));
+  }
+
+  public ArrayList<ArrayList<Move>> genAllMoves(ArrayList<AiBasePiece> pieces) throws ParseException {
     ArrayList<ArrayList<Move>> allMoves = new ArrayList<>(16);
 
-    for (BasePiece piece : pieces) {
+    for (AiBasePiece piece : pieces) {
       ArrayList<Move> tmp = validMoves(b, piece);
 
       for (Move m : tmp) {

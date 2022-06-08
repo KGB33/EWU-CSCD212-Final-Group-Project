@@ -7,17 +7,12 @@ public class Rook extends BasePiece {
   private static char whiteIcon = '\u2656';
   private static char blackIcon = '\u265C';
 
-  private static final int score = 60;
-
-  private char[] current = {'0', '0'};
-
   public Rook(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
     }
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Rook.whiteIcon : Rook.blackIcon;
-    this.current = getCurrent();
   }
 
   @Override
@@ -41,21 +36,5 @@ public class Rook extends BasePiece {
       }
     }
     return true;
-  }
-
-  @Override
-  public char[] getCurrent() {
-    return this.current;
-  }
-
-  @Override
-  public void setCurrent(char file, char rank) {
-    this.current[0] = file;
-    this.current[1] = rank;
-  }
-
-  @Override
-  public int getScore() {
-    return score;
   }
 }

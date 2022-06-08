@@ -7,10 +7,6 @@ public class Pawn extends BasePiece {
   private static char whiteIcon = '\u2659';
   private static char blackIcon = '\u265F';
 
-  private static final int score = 10;
-
-  private char[] current = {'0', '0'};
-
   /**
    * Creates a Pawn with the provided color.
    *
@@ -123,21 +119,5 @@ public class Pawn extends BasePiece {
       return isValidEnPassant(b, m);
     }
     return false;
-  }
-
-  @Override
-  public char[] getCurrent() {
-    return this.current;
-  }
-
-  @Override
-  public void setCurrent(char file, char rank) {
-    this.current[0] = file;
-    this.current[1] = rank;
-  }
-
-  @Override
-  public int getScore() {
-    return score;
   }
 }

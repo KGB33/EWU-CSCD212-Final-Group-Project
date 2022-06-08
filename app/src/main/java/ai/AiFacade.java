@@ -1,5 +1,6 @@
 package ai;
 
+import ai.pieces.AiBasePiece;
 import core.classes.BasePiece;
 import core.classes.Board;
 import core.classes.Move;
@@ -15,13 +16,16 @@ public class AiFacade {
     this.ai = new Computer(b);
     this.moveGen = new MoveGen(b);
   }
+  public void setUp() {
+    ai.initPieces();
+  }
 
   public void playTurn(Board newB) throws ParseException {
     if (newB.isGameOver()) {
       return;
     }
 
-    ArrayList<BasePiece> pieces = ai.getPieces();
+    ArrayList<AiBasePiece> pieces = ai.getPieces();
     ArrayList<ArrayList<Move>> allMoves = moveGen.genAllMoves(pieces);
     newB.move(ai.bestMove(allMoves));
   }
