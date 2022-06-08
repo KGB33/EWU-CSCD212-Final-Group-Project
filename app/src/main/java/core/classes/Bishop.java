@@ -7,17 +7,13 @@ public class Bishop extends BasePiece {
   private static char whiteIcon = '\u2657';
   private static char blackIcon = '\u265D';
 
-  private static final int score = 30;
-
-  private char[] current;
-
   public Bishop(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
     }
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Bishop.whiteIcon : Bishop.blackIcon;
-    this.current = getCurrent();
+    this.score = 30;
   }
 
   @Override

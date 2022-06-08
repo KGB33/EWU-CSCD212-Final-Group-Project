@@ -179,6 +179,7 @@ public class Board {
       this.gameOver = true;
       this.winner = capturedPeice.color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
+    p.setCurrent(m.getFile(), m.getRank());
     return true;
   }
 

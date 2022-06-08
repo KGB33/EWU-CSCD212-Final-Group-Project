@@ -7,10 +7,6 @@ public class Queen extends BasePiece {
   private static char whiteIcon = '\u2655';
   private static char blackIcon = '\u265B';
 
-  private static final int score = 80;
-
-  private char[] current;
-
   public Queen(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
@@ -22,7 +18,7 @@ public class Queen extends BasePiece {
     if (color.equals(Color.WHITE)) {
       this.icon = Queen.whiteIcon;
     }
-    this.current = getCurrent();
+    this.score = 80;
   }
 
   @Override

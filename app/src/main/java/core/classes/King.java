@@ -7,10 +7,6 @@ public class King extends BasePiece {
   private static char whiteIcon = '\u2654';
   private static char blackIcon = '\u265A';
 
-  private static final int score = 50;
-
-  private char[] current;
-
   /**
    * Constructor for a King.
    *
@@ -28,7 +24,7 @@ public class King extends BasePiece {
     if (color.equals(Color.WHITE)) {
       this.icon = King.whiteIcon;
     }
-    this.current = getCurrent();
+    this.score = 100;
   }
 
   /** A king can move one square in any direction. */

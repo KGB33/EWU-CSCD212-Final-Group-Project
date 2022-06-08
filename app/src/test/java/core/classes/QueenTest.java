@@ -83,4 +83,10 @@ public class QueenTest {
     Queen q = new Queen(Color.WHITE);
     assertTrue(q.isValidMove(b, m));
   }
+
+  @Test
+  void testGetScore() {
+    final Queen p = new Queen(Color.WHITE);
+    assertEquals(80, p.getScore());
+  }
 }

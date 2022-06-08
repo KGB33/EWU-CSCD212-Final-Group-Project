@@ -7,17 +7,13 @@ public class Rook extends BasePiece {
   private static char whiteIcon = '\u2656';
   private static char blackIcon = '\u265C';
 
-  private static final int score = 60;
-
-  private char[] current;
-
   public Rook(final Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
     }
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Rook.whiteIcon : Rook.blackIcon;
-    this.current = getCurrent();
+    this.score = 60;
   }
 
   @Override

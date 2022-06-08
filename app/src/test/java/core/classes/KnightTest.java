@@ -62,4 +62,10 @@ public class KnightTest {
     Move m = Move.parse("Nd4xb5");
     assertTrue(n.isValidMove(b, m));
   }
+
+  @Test
+  void testGetScore() {
+    final Knight p = new Knight(Color.WHITE);
+    assertEquals(30, p.getScore());
+  }
 }

@@ -7,17 +7,13 @@ public class Knight extends BasePiece {
   private static char whiteIcon = '\u2658';
   private static char blackIcon = '\u265E';
 
-  private static final int score = 30;
-
-  private char[] current;
-
   public Knight(Color color) {
     if (color == null) {
       throw new IllegalArgumentException();
     }
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Knight.whiteIcon : Knight.blackIcon;
-    this.current = getCurrent();
+    this.score = 30;
   }
 
   @Override

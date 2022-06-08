@@ -26,7 +26,7 @@ public abstract class BasePiece {
   protected char icon;
   protected Color color;
   protected char[] current = {'0', '0'};
-  protected int score = 0;
+  protected int score;
 
   public boolean isValidMove(Board b, Move m) {
     // Cannot move to the square it is on.

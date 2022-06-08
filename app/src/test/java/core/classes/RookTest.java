@@ -88,4 +88,10 @@ public class RookTest {
     b.setSquare('a', '1', r);
     assertTrue(r.isValidMove(b, m));
   }
+
+  @Test
+  void testGetScore() {
+    final Rook p = new Rook(Color.WHITE);
+    assertEquals(60, p.getScore());
+  }
 }

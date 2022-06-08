@@ -7,10 +7,6 @@ public class Pawn extends BasePiece {
   private static char whiteIcon = '\u2659';
   private static char blackIcon = '\u265F';
 
-  private static final int score = 10;
-
-  private char[] current;
-
   /**
    * Creates a Pawn with the provided color.
    *
@@ -23,6 +19,7 @@ public class Pawn extends BasePiece {
     }
     this.color = color;
     this.icon = color.equals(Color.BLACK) ? Pawn.blackIcon : Pawn.whiteIcon;
+    this.score = 10;
   }
 
   /**

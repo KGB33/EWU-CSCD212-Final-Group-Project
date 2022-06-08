@@ -49,4 +49,10 @@ public class KingTest {
     King k = new King(Color.WHITE);
     assertFalse(k.isValidMove(b, m));
   }
+
+  @Test
+  void testGetScore() {
+    final King p = new King(Color.WHITE);
+    assertEquals(100, p.getScore());
+  }
 }
