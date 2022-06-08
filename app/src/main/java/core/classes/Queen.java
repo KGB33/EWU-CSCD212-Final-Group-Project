@@ -19,6 +19,7 @@ public class Queen extends BasePiece {
     if (color.equals(Color.WHITE)) {
       this.icon = Queen.whiteIcon;
     }
+    this.score = 80;
   }
 
   @Override

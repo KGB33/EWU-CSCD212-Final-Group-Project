@@ -14,6 +14,7 @@ public class Bishop extends BasePiece {
     this.shortName = "B";
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Bishop.whiteIcon : Bishop.blackIcon;
+    this.score = 30;
   }
 
   @Override

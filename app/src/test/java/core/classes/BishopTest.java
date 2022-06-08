@@ -88,4 +88,10 @@ public class BishopTest {
     b.setSquare('h', '8', new Bishop(Color.BLACK));
     assertTrue(bishop.isValidMove(b, m));
   }
+
+  @Test
+  void testGetScore() {
+    final Bishop p = new Bishop(Color.WHITE);
+    assertEquals(30, p.getScore());
+  }
 }

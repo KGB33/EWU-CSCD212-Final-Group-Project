@@ -14,6 +14,7 @@ public class Rook extends BasePiece {
     this.shortName = "R";
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Rook.whiteIcon : Rook.blackIcon;
+    this.score = 60;
   }
 
   @Override

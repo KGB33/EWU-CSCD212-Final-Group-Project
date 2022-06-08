@@ -25,6 +25,7 @@ public class King extends BasePiece {
     if (color.equals(Color.WHITE)) {
       this.icon = King.whiteIcon;
     }
+    this.score = 100;
   }
 
   /** A king can move one square in any direction. */
