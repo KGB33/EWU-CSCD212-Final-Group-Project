@@ -15,7 +15,7 @@ class CLITest {
 
   @Test
   void TestFoolsMate() throws IOException, URISyntaxException {
-    Scanner moves = new Scanner("f2f3\ne7e6\ng2g4\nQd8h4\na2a4\nQh4xe1");
+    Scanner moves = new Scanner("1\nf2f3\ne7e6\ng2g4\nQd8h4\na2a4\nQh4xe1");
     ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
     PrintStream output = new PrintStream(outputContent);
     CLI.run(moves, output);

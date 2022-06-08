@@ -30,6 +30,9 @@ public final class Move {
   private boolean isQueenSideCastle;
   private boolean isKingSideCastle;
 
+  // Move score
+  private int moveScore = 0;
+
   /** All possible characters in algebraic notation. */
   private static final Set<Character> validCharacters =
       // file     +  ranks     + pieces  + other
@@ -173,6 +176,10 @@ public final class Move {
     return isCheck;
   }
 
+  public void setCheck(boolean n) {
+    this.isCheck = n;
+  }
+
   public boolean isCheckmate() {
     return isCheckmate;
   }
@@ -195,5 +202,13 @@ public final class Move {
 
   public boolean isKingSideCastle() {
     return isKingSideCastle;
+  }
+
+  public int getMoveScore() {
+    return this.moveScore;
+  }
+
+  public void setMoveScore(int score) {
+    this.moveScore = score;
   }
 }

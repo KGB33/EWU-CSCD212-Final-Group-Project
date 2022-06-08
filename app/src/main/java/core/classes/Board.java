@@ -49,33 +49,51 @@ public class Board {
    */
   private static BasePiece[][] createBoard() {
     final BasePiece[][] b = new BasePiece[8][8];
+    final char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
     // White Pieces
 
     b[Board.rank.get('1')][Board.file.get('a')] = new Rook(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('a')].setCurrent('a', '1');
     b[Board.rank.get('1')][Board.file.get('b')] = new Knight(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('b')].setCurrent('b', '1');
     b[Board.rank.get('1')][Board.file.get('c')] = new Bishop(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('c')].setCurrent('c', '1');
     b[Board.rank.get('1')][Board.file.get('d')] = new Queen(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('d')].setCurrent('d', '1');
     b[Board.rank.get('1')][Board.file.get('e')] = new King(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('e')].setCurrent('e', '1');
     b[Board.rank.get('1')][Board.file.get('f')] = new Bishop(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('f')].setCurrent('f', '1');
     b[Board.rank.get('1')][Board.file.get('g')] = new Knight(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('g')].setCurrent('g', '1');
     b[Board.rank.get('1')][Board.file.get('h')] = new Rook(Color.WHITE);
+    b[Board.rank.get('1')][Board.file.get('h')].setCurrent('h', '1');
     for (int file : Board.file.values()) {
       b[Board.rank.get('2')][file] = new Pawn(Color.WHITE);
+      b[Board.rank.get('2')][file].setCurrent(files[file], '2');
     }
 
     // Black Pieces
     b[Board.rank.get('8')][Board.file.get('a')] = new Rook(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('a')].setCurrent('a', '8');
     b[Board.rank.get('8')][Board.file.get('b')] = new Knight(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('b')].setCurrent('b', '8');
     b[Board.rank.get('8')][Board.file.get('c')] = new Bishop(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('c')].setCurrent('c', '8');
     b[Board.rank.get('8')][Board.file.get('e')] = new King(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('e')].setCurrent('e', '8');
     b[Board.rank.get('8')][Board.file.get('d')] = new Queen(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('d')].setCurrent('d', '8');
     b[Board.rank.get('8')][Board.file.get('f')] = new Bishop(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('f')].setCurrent('f', '8');
     b[Board.rank.get('8')][Board.file.get('g')] = new Knight(Color.BLACK);
+    b[Board.rank.get('8')][Board.file.get('g')].setCurrent('g', '8');
     b[Board.rank.get('8')][Board.file.get('h')] = new Rook(Color.BLACK);
-
+    b[Board.rank.get('8')][Board.file.get('h')].setCurrent('h', '8');
     for (int file : Board.file.values()) {
       b[Board.rank.get('7')][file] = new Pawn(Color.BLACK);
+      b[Board.rank.get('7')][file].setCurrent(files[file], '7');
     }
 
     return b;
@@ -162,6 +180,7 @@ public class Board {
       this.gameOver = true;
       this.winner = capturedPeice.color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
+    p.setCurrent(m.getFile(), m.getRank());
     return true;
   }
 

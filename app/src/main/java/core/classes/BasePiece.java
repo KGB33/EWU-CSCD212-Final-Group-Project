@@ -23,6 +23,8 @@ public abstract class BasePiece {
    */
   protected char icon;
   protected Color color;
+  protected char[] current = {'0', '0'};
+  protected int score;
   protected String shortName;
 
   public boolean isValidMove(Board b, Move m) {
@@ -38,8 +40,33 @@ public abstract class BasePiece {
         || (m.isCapture() && toSquare != null && !toSquare.color.equals(this.color));
   }
 
+  public boolean isCheck(Board b, char file, char rank) {
+    BasePiece toCheck = b.getSquare(file, rank);
+    if (toCheck == null) {
+      return false;
+    }
+    if (this.color == toCheck.getColor()) {
+      return false;
+    }
+
+    return (toCheck.getClass().equals(King.class));
+  }
+
   public String toString() {
     return String.valueOf(this.icon);
+  }
+
+  public int getScore() {
+    return this.score;
+  }
+
+  public char[] getCurrent() {
+    return this.current;
+  }
+
+  public void setCurrent(char file, char rank) {
+    this.current[0] = file;
+    this.current[1] = rank;
   }
 
   public String getShortName() {

@@ -14,6 +14,7 @@ public class Knight extends BasePiece {
     this.shortName = "N";
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Knight.whiteIcon : Knight.blackIcon;
+    this.score = 30;
   }
 
   @Override
