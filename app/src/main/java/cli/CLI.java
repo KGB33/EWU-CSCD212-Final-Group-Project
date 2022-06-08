@@ -1,8 +1,6 @@
 package cli;
 
-
 import ai.AiFacade;
-
 import core.classes.Board;
 import core.classes.Move;
 import core.enums.Color;

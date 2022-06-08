@@ -1,8 +1,6 @@
 package core.classes;
 
 import core.enums.Color;
-import java.text.ParseException;
-import java.util.ArrayList;
 
 /** The parent class for all chess pieces. */
 public abstract class BasePiece {
@@ -52,7 +50,6 @@ public abstract class BasePiece {
     }
 
     return (toCheck.getClass().equals(King.class));
-
   }
 
   public String toString() {
@@ -70,8 +67,8 @@ public abstract class BasePiece {
   public void setCurrent(char file, char rank) {
     this.current[0] = file;
     this.current[1] = rank;
-  } 
-  
+  }
+
   public String getShortName() {
     return this.shortName;
   }
