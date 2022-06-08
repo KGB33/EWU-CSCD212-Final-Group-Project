@@ -25,11 +25,8 @@ public abstract class BasePiece {
    */
   protected char icon;
   protected Color color;
-  protected char[] current;
-  protected int score;
-
-  final char[] ranks = {'8', '7', '6', '5', '4', '3', '2', '1'};
-  final char[] files = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+  protected char[] current = {'0', '0'};
+  protected int score = 0;
 
   public boolean isValidMove(Board b, Move m) {
     // Cannot move to the square it is on.
@@ -44,18 +41,6 @@ public abstract class BasePiece {
         || (m.isCapture() && toSquare != null && !toSquare.color.equals(this.color));
   }
 
-  public char[] getCurrent() {
-    return current;
-  }
-
-  public void setCurrent(char file, char rank) {}
-
-  // add get rank and file location
-
-  public ArrayList<Move> validMoves(Board b) throws ParseException {
-    return new ArrayList<>();
-  }
-
   public boolean isCheck(Board b, char file, char rank) {
     BasePiece toCheck = b.getSquare(file, rank);
     if (toCheck == null) {
@@ -68,8 +53,6 @@ public abstract class BasePiece {
     return (toCheck.getClass().equals(King.class));
   }
 
-  public void canCheck(Board b, Move m) throws ParseException {}
-
   public String toString() {
     return String.valueOf(this.icon);
   }
@@ -80,5 +63,14 @@ public abstract class BasePiece {
 
   public int getScore() {
     return this.score;
+  }
+
+  public char[] getCurrent() {
+    return this.current;
+  }
+
+  public void setCurrent(char file, char rank) {
+    this.current[0] = file;
+    this.current[1] = rank;
   }
 }

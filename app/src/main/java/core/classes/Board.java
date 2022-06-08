@@ -209,10 +209,6 @@ public class Board {
     return this.moves;
   }
 
-  public BasePiece[][] getBoardMap() {
-    return this.board;
-  }
-
   public boolean isGameOver() {
     return this.gameOver;
   }

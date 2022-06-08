@@ -9,7 +9,7 @@ public class Queen extends BasePiece {
 
   private static final int score = 80;
 
-  private char[] current = {'0', '0'};
+  private char[] current;
 
   public Queen(final Color color) {
     if (color == null) {
@@ -47,21 +47,5 @@ public class Queen extends BasePiece {
       }
     }
     return true;
-  }
-
-  @Override
-  public char[] getCurrent() {
-    return this.current;
-  }
-
-  @Override
-  public void setCurrent(char file, char rank) {
-    this.current[0] = file;
-    this.current[1] = rank;
-  }
-
-  @Override
-  public int getScore() {
-    return score;
   }
 }
