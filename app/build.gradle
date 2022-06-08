@@ -7,28 +7,72 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
 	id 'checkstyle'
     id 'com.github.sherter.google-java-format' version '0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.jlink' version '2.24.1'
 }
 
+
+def getVersionName = {
+	-> def stdout = new ByteArrayOutputStream()
+	exec {
+		workingDir = '../'
+		commandLine 'git'
+		args = ['describe', '--tags']
+		standardOutput = stdout 
+	}
+	return stdout.toString().trim()
+}
+
+group 'chess'
+version getVersionName()
+
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 
-    // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
+    implementation('org.controlsfx:controlsfx:11.1.0')
+    implementation('org.kordamp.ikonli:ikonli-javafx:12.2.0')
 }
 
 application {
-    // Define the main class for the application.
     mainClass = 'chess.Main'
+    mainModule = 'chess'
+}
+
+task fatJar(type: Jar) {
+	manifest {
+        attributes 'Main-Class': 'chess.Main'
+    }
+	archiveBaseName = project.name + '-fat'
+	from {
+		duplicatesStrategy = 'include'
+		configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+	}
+    with jar
+}
+
+javafx {
+    version = '18.0.1'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    options = ['--strip-debug','--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'app'
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
 }
 
 compileJava.configure {
@@ -37,11 +81,6 @@ compileJava.configure {
 
 run {
     standardInput = System.in
-}
-
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
 }
 
 task ci {
@@ -53,6 +92,7 @@ task ci {
 }
 
 test {
+    useJUnitPlatform()
     maxParallelForks 3
 }
 

@@ -11,6 +11,7 @@ public class Knight extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException();
     }
+    this.shortName = "N";
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Knight.whiteIcon : Knight.blackIcon;
     this.score = 30;

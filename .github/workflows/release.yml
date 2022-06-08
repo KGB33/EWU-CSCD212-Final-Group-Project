@@ -1,0 +1,46 @@
+name: Release Jar
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: "Make sure you run off the correct tag!"
+        default: "Did you change it?"
+        required: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Run CI with Gradle
+        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        with:
+          arguments: ci
+
+      - name: Build Jars 
+        id: build
+        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        with:
+          arguments: clean jar fatJar
+      
+      - name: Publish release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            app/build/libs/*.jar
+
+

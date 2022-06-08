@@ -11,6 +11,7 @@ public class Queen extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException();
     }
+    this.shortName = "Q";
     this.color = color;
     if (color.equals(Color.BLACK)) {
       this.icon = Queen.blackIcon;

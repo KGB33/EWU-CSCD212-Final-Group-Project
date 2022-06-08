@@ -11,6 +11,7 @@ public class Rook extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException();
     }
+    this.shortName = "R";
     this.color = color;
     this.icon = color.equals(Color.WHITE) ? Rook.whiteIcon : Rook.blackIcon;
     this.score = 60;

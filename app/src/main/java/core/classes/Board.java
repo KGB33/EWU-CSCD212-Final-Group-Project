@@ -13,6 +13,7 @@ public class Board {
   private int turnNumber;
   private boolean gameOver;
   private Color winner;
+
   private ArrayList<Move> moves;
 
   private static final Map<Character, Integer> rank;
@@ -206,15 +207,15 @@ public class Board {
     return this.turnNumber;
   }
 
-  public ArrayList<Move> getMoves() {
-    return this.moves;
-  }
-
   public boolean isGameOver() {
     return this.gameOver;
   }
 
   public Color getWinner() {
     return this.winner;
+  }
+
+  public ArrayList<Move> getMoves() {
+    return this.moves;
   }
 }

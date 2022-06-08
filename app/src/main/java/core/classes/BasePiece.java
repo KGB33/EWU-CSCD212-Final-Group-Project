@@ -27,6 +27,7 @@ public abstract class BasePiece {
   protected Color color;
   protected char[] current = {'0', '0'};
   protected int score;
+  protected String shortName;
 
   public boolean isValidMove(Board b, Move m) {
     // Cannot move to the square it is on.
@@ -51,14 +52,11 @@ public abstract class BasePiece {
     }
 
     return (toCheck.getClass().equals(King.class));
+
   }
 
   public String toString() {
     return String.valueOf(this.icon);
-  }
-
-  public Color getColor() {
-    return this.color;
   }
 
   public int getScore() {
@@ -72,5 +70,13 @@ public abstract class BasePiece {
   public void setCurrent(char file, char rank) {
     this.current[0] = file;
     this.current[1] = rank;
+  } 
+  
+  public String getShortName() {
+    return this.shortName;
+  }
+
+  public Color getColor() {
+    return this.color;
   }
 }

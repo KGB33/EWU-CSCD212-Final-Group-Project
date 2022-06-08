@@ -17,9 +17,10 @@ public class Pawn extends BasePiece {
     if (color == null) {
       throw new IllegalArgumentException("Color cannot be null.");
     }
+    this.score = 10;
+    this.shortName = "";
     this.color = color;
     this.icon = color.equals(Color.BLACK) ? Pawn.blackIcon : Pawn.whiteIcon;
-    this.score = 10;
   }
 
   /**
@@ -85,6 +86,11 @@ public class Pawn extends BasePiece {
 
   private boolean isValidEnPassant(Board b, Move m) {
     char expectedRank = this.color.equals(Color.WHITE) ? '5' : '4';
+    char moveToRank = this.color.equals(Color.WHITE) ? '6' : '3';
+
+    if (m.getRank() != moveToRank) {
+      return false;
+    }
 
     // toSquare must be empty and captured piece must exist & be a different
     // color & a pawn
