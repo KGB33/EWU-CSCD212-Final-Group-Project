@@ -1,13 +1,16 @@
 package gui;
 
+import ai.AiFacade;
 import core.classes.*;
 import core.enums.Color;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
@@ -24,6 +27,10 @@ public class ChessController implements Initializable {
   @FXML private TextArea wHistory;
   @FXML private TextArea bHistory;
   @FXML private Label winText;
+  @FXML private Button pvpButton;
+  @FXML private Button pveButton;
+  private boolean aiGame;
+  private AiFacade cpu;
   private URL initURL;
   private ResourceBundle initResource;
 
@@ -58,7 +65,7 @@ public class ChessController implements Initializable {
 
   // Selects a piece square
   @FXML
-  protected void selectPiece(MouseEvent mouseEvent) {
+  protected void selectPiece(MouseEvent mouseEvent) throws ParseException {
     if (!b.isGameOver()) {
       ImageView oldSelected = selected;
       selected = (ImageView) mouseEvent.getSource();
@@ -84,7 +91,7 @@ public class ChessController implements Initializable {
   }
 
   // Moves a selected piece from one square to another.
-  protected void movePiece(ImageView from, ImageView to) {
+  protected void movePiece(ImageView from, ImageView to) throws ParseException {
     // Initializing information needed to move. Where the piece is from and where it's going
     // Each variable has to be checked for null, when getting column or row 0, null is returned
     // instead of 0 for some reason
@@ -114,23 +121,24 @@ public class ChessController implements Initializable {
     char fromRank = (char) (fromRow + 49);
     char toFile = (char) (toCol + 97);
     char toRank = (char) (toRow + 49);
+    BasePiece movePiece = b.getSquare(fromFile, fromRank);
 
     String fromStr = "";
     String toStr = "" + toFile + toRank;
     Move m = null;
 
     // Building from portion of the notions based on type of piece selected
-    if (b.getSquare(fromFile, fromRank) instanceof King) {
+    if (movePiece instanceof King) {
       fromStr = "K" + fromFile + fromRank;
-    } else if (b.getSquare(fromFile, fromRank) instanceof Queen) {
+    } else if (movePiece instanceof Queen) {
       fromStr = "Q" + fromFile + fromRank;
-    } else if (b.getSquare(fromFile, fromRank) instanceof Bishop) {
+    } else if (movePiece instanceof Bishop) {
       fromStr = "B" + fromFile + fromRank;
-    } else if (b.getSquare(fromFile, fromRank) instanceof Knight) {
+    } else if (movePiece instanceof Knight) {
       fromStr = "N" + fromFile + fromRank;
-    } else if (b.getSquare(fromFile, fromRank) instanceof Rook) {
+    } else if (movePiece instanceof Rook) {
       fromStr = "R" + fromFile + fromRank;
-    } else if (b.getSquare(fromFile, fromRank) instanceof Pawn) {
+    } else if (movePiece instanceof Pawn) {
       fromStr = "" + fromFile + fromRank;
     }
 
@@ -141,14 +149,25 @@ public class ChessController implements Initializable {
     while (count < moves.length && !moved) {
       try {
         m = Move.parse(moves[count]);
+
       } catch (ParseException e) {
         e.printStackTrace();
       }
+      System.out.println("From: " + movePiece.isCheck(b, fromFile, fromRank));
+      System.out.println("To: " + movePiece.isCheck(b, toFile, toRank));
+      System.out.println("Valid: " + movePiece.isValidMove(b, m));
       moved = b.move(m);
       count++;
     }
     updateHistory(moves[count - 1], toRank, toFile);
     updateBoard();
+    if (aiGame && b.getTurnNumber() % 2 == 1) {
+      String cpuMove = cpu.playTurn(b);
+      updateBoard();
+      // updateHistory(cpuMove, cpuMove.charAt(cpuMove.length()-3),
+      // cpuMove.charAt(cpuMove.length()-4));
+      bHistory.setText(bHistory.getText() + cpuMove + "\n");
+    }
   }
 
   // Previews all valid moves of a selected piece
@@ -168,21 +187,22 @@ public class ChessController implements Initializable {
     }
     char file = (char) (col + 97);
     char rank = (char) (row + 49);
+    BasePiece previewPiece = b.getSquare(file, rank);
 
-    if (b.getSquare(file, rank).getColor() == Color.WHITE && b.getTurnNumber() % 2 == 0
-        || b.getSquare(file, rank).getColor() == Color.BLACK && b.getTurnNumber() % 2 == 1) {
+    if (previewPiece.getColor() == Color.WHITE && b.getTurnNumber() % 2 == 0
+        || previewPiece.getColor() == Color.BLACK && b.getTurnNumber() % 2 == 1) {
 
-      if (b.getSquare(file, rank) instanceof King) {
+      if (previewPiece instanceof King) {
         from = "K" + file + rank;
-      } else if (b.getSquare(file, rank) instanceof Queen) {
+      } else if (previewPiece instanceof Queen) {
         from = "Q" + file + rank;
-      } else if (b.getSquare(file, rank) instanceof Bishop) {
+      } else if (previewPiece instanceof Bishop) {
         from = "B" + file + rank;
-      } else if (b.getSquare(file, rank) instanceof Knight) {
+      } else if (previewPiece instanceof Knight) {
         from = "N" + file + rank;
-      } else if (b.getSquare(file, rank) instanceof Rook) {
+      } else if (previewPiece instanceof Rook) {
         from = "R" + file + rank;
-      } else if (b.getSquare(file, rank) instanceof Pawn) {
+      } else if (previewPiece instanceof Pawn) {
         from = "" + file + rank;
       } else {
         return;
@@ -261,6 +281,16 @@ public class ChessController implements Initializable {
     }
     // Prints the board to the console to make sure the gui board is accurate to the board
     System.out.println(b.toString());
+
+    if (b.isGameOver()) {
+      winText.setText(b.getWinner().toString().toUpperCase() + " WINS!");
+      pvpButton.setDisable(false);
+      pvpButton.setVisible(true);
+      pveButton.setDisable(false);
+      pveButton.setVisible(true);
+
+      // restart();
+    }
   }
 
   // Updates the move history of each player
@@ -270,16 +300,11 @@ public class ChessController implements Initializable {
     } else {
       wHistory.setText(wHistory.getText() + move + "\n");
     }
-
-    if (b.isGameOver()) {
-      winText.setText(b.getWinner().toString().toUpperCase() + " WINS!");
-    }
   }
 
   // Builds each variation of a move notation (checkmate, check, capture, plane move)
   public String[] buildMoves(String from, String to) {
-
-    return new String[] {from + "x" + to, from + to};
+    return new String[] {from + "x" + to + "+", from + to + "+", from + "x" + to, from + to};
   }
 
   @FXML
@@ -287,12 +312,38 @@ public class ChessController implements Initializable {
     initialize(initURL, initResource);
   }
 
+  @FXML
+  public void gameModeSelect(ActionEvent event) {
+    if (event.getSource() == pvpButton) {
+      winText.setText("   PVP Game");
+    }
+    if (event.getSource() == pveButton) {
+      winText.setText("   PvAI Game");
+      aiGame = true;
+    }
+
+    pvpButton.setDisable(true);
+    pvpButton.setVisible(false);
+    pveButton.setDisable(true);
+    pveButton.setVisible(false);
+
+    BoardPane.setDisable(false);
+    restart();
+  }
+
   // Sets up the gui board
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // gameModeSelect(new ActionEvent());
+    // BoardPane.setDisable(true);
+
     initURL = location;
     initResource = resources;
     b = new Board();
+    if (aiGame) {
+      cpu = new AiFacade(b);
+    }
+
     winText.setText("");
     wHistory.setText("");
     bHistory.setText("");

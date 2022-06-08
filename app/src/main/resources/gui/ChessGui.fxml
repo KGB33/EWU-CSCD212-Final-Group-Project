@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ChessController">
    <children>
-      <GridPane fx:id="BoardPane" gridLinesVisible="true" layoutX="150.0" layoutY="100.0">
+      <GridPane fx:id="BoardPane" disable="true" gridLinesVisible="true" layoutX="150.0" layoutY="100.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="50.0" />
@@ -140,8 +140,14 @@
          </children>
       </GridPane>
       <Button fx:id="moveButton" layoutX="615.0" layoutY="560.0" mnemonicParsing="false" onAction="#restart" text="RESTART" />
-      <TextArea fx:id="wHistory" layoutX="550.0" layoutY="100.0" prefHeight="400.0" prefWidth="149.0" text="a" />
-      <TextArea fx:id="bHistory" layoutY="100.0" prefHeight="400.0" prefWidth="149.0" text="a" />
+      <TextArea fx:id="wHistory" editable="false" layoutX="550.0" layoutY="100.0" prefHeight="400.0" prefWidth="149.0" text="a">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
+      <TextArea fx:id="bHistory" editable="false" layoutY="100.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="400.0" prefWidth="149.0" text="a">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
       <Label layoutX="11.0" layoutY="80.0" text="Black Move History" underline="true">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -152,10 +158,20 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="winText" layoutX="150.0" layoutY="8.0" prefHeight="92.0" prefWidth="400.0" text="BLACK WINS!" textAlignment="CENTER">
+      <Label fx:id="winText" contentDisplay="CENTER" layoutX="150.0" layoutY="8.0" prefHeight="92.0" prefWidth="400.0" text="   PvAI Game" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="61.0" />
          </font>
       </Label>
+      <Button fx:id="pvpButton" layoutX="275.0" layoutY="200.0" mnemonicParsing="false" onAction="#gameModeSelect" prefHeight="75.0" prefWidth="150.0" text="Player vs Player">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="pveButton" layoutX="275.0" layoutY="325.0" mnemonicParsing="false" onAction="#gameModeSelect" prefHeight="75.0" prefWidth="150.0" text="Player vs AI" textAlignment="CENTER">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
