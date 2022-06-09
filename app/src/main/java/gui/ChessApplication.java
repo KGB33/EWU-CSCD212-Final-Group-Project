@@ -12,7 +12,7 @@ public class ChessApplication extends Application {
     FXMLLoader fxmlLoader =
         new FXMLLoader(ChessApplication.class.getResource("/gui/ChessGui.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 700, 600);
-    stage.setTitle("Hello!");
+    stage.setTitle("Chess!");
     stage.setScene(scene);
     stage.show();
   }
