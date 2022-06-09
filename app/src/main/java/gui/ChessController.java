@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,8 +23,6 @@ public class ChessController implements Initializable {
   core.classes.Board b = new Board();
 
   @FXML private GridPane BoardPane;
-  @FXML private TextArea wHistory;
-  @FXML private TextArea bHistory;
   @FXML private Label winText;
   @FXML private Button pvpButton;
   @FXML private Button pveButton;
@@ -66,6 +63,7 @@ public class ChessController implements Initializable {
   // Selects a piece square
   @FXML
   protected void selectPiece(MouseEvent mouseEvent) throws ParseException {
+    System.out.println(mouseEvent.getSource());
     if (!b.isGameOver()) {
       ImageView oldSelected = selected;
       selected = (ImageView) mouseEvent.getSource();
@@ -87,86 +85,6 @@ public class ChessController implements Initializable {
       else {
         movePiece(oldSelected, selected);
       }
-    }
-  }
-
-  // Moves a selected piece from one square to another.
-  protected void movePiece(ImageView from, ImageView to) throws ParseException {
-    // Initializing information needed to move. Where the piece is from and where it's going
-    // Each variable has to be checked for null, when getting column or row 0, null is returned
-    // instead of 0 for some reason
-    Integer fromRow = BoardPane.getRowIndex(from);
-    if (fromRow == null) {
-      fromRow = 0;
-    }
-    fromRow = 7 - fromRow;
-    Integer fromCol = BoardPane.getColumnIndex(from);
-    if (fromCol == null) {
-      fromCol = 0;
-    }
-    Integer toRow = BoardPane.getRowIndex(to);
-    if (toRow == null) {
-      toRow = 0;
-    }
-    toRow = 7 - toRow;
-    Integer toCol = BoardPane.getColumnIndex(to);
-    if (toCol == null) {
-      toCol = 0;
-    }
-
-    // Converting col/row to rank/file
-    // Col + 97 converts 0-7 int to a-h char
-    // Row + 49 coverts 0-7 int to 1-8 char
-    char fromFile = (char) (fromCol + 97);
-    char fromRank = (char) (fromRow + 49);
-    char toFile = (char) (toCol + 97);
-    char toRank = (char) (toRow + 49);
-    BasePiece movePiece = b.getSquare(fromFile, fromRank);
-
-    String fromStr = "";
-    String toStr = "" + toFile + toRank;
-    Move m = null;
-
-    // Building from portion of the notions based on type of piece selected
-    if (movePiece instanceof King) {
-      fromStr = "K" + fromFile + fromRank;
-    } else if (movePiece instanceof Queen) {
-      fromStr = "Q" + fromFile + fromRank;
-    } else if (movePiece instanceof Bishop) {
-      fromStr = "B" + fromFile + fromRank;
-    } else if (movePiece instanceof Knight) {
-      fromStr = "N" + fromFile + fromRank;
-    } else if (movePiece instanceof Rook) {
-      fromStr = "R" + fromFile + fromRank;
-    } else if (movePiece instanceof Pawn) {
-      fromStr = "" + fromFile + fromRank;
-    }
-
-    // Building and trying all possible moves going from 'fromStr' to 'toStr'
-    String[] moves = buildMoves(fromStr, toStr);
-    int count = 0;
-    boolean moved = false;
-    while (count < moves.length && !moved) {
-      try {
-        m = Move.parse(moves[count]);
-
-      } catch (ParseException e) {
-        e.printStackTrace();
-      }
-      System.out.println("From: " + movePiece.isCheck(b, fromFile, fromRank));
-      System.out.println("To: " + movePiece.isCheck(b, toFile, toRank));
-      System.out.println("Valid: " + movePiece.isValidMove(b, m));
-      moved = b.move(m);
-      count++;
-    }
-    updateHistory(moves[count - 1], toRank, toFile);
-    updateBoard();
-    if (aiGame && b.getTurnNumber() % 2 == 1) {
-      String cpuMove = cpu.playTurn(b);
-      updateBoard();
-      // updateHistory(cpuMove, cpuMove.charAt(cpuMove.length()-3),
-      // cpuMove.charAt(cpuMove.length()-4));
-      bHistory.setText(bHistory.getText() + cpuMove + "\n");
     }
   }
 
@@ -236,6 +154,79 @@ public class ChessController implements Initializable {
     }
   }
 
+  // Moves a selected piece from one square to another.
+  protected void movePiece(ImageView from, ImageView to) throws ParseException {
+    // Initializing information needed to move. Where the piece is from and where it's going
+    // Each variable has to be checked for null, when getting column or row 0, null is returned
+    // instead of 0 for some reason
+    Integer fromRow = BoardPane.getRowIndex(from);
+    if (fromRow == null) {
+      fromRow = 0;
+    }
+    fromRow = 7 - fromRow;
+    Integer fromCol = BoardPane.getColumnIndex(from);
+    if (fromCol == null) {
+      fromCol = 0;
+    }
+    Integer toRow = BoardPane.getRowIndex(to);
+    if (toRow == null) {
+      toRow = 0;
+    }
+    toRow = 7 - toRow;
+    Integer toCol = BoardPane.getColumnIndex(to);
+    if (toCol == null) {
+      toCol = 0;
+    }
+
+    // Converting col/row to rank/file
+    // Col + 97 converts 0-7 int to a-h char
+    // Row + 49 coverts 0-7 int to 1-8 char
+    char fromFile = (char) (fromCol + 97);
+    char fromRank = (char) (fromRow + 49);
+    char toFile = (char) (toCol + 97);
+    char toRank = (char) (toRow + 49);
+    BasePiece movePiece = b.getSquare(fromFile, fromRank);
+
+    String fromStr = "";
+    String toStr = "" + toFile + toRank;
+    Move m = null;
+
+    // Building from portion of the notions based on type of piece selected
+    if (movePiece instanceof King) {
+      fromStr = "K" + fromFile + fromRank;
+    } else if (movePiece instanceof Queen) {
+      fromStr = "Q" + fromFile + fromRank;
+    } else if (movePiece instanceof Bishop) {
+      fromStr = "B" + fromFile + fromRank;
+    } else if (movePiece instanceof Knight) {
+      fromStr = "N" + fromFile + fromRank;
+    } else if (movePiece instanceof Rook) {
+      fromStr = "R" + fromFile + fromRank;
+    } else if (movePiece instanceof Pawn) {
+      fromStr = "" + fromFile + fromRank;
+    }
+
+    // Building and trying all possible moves going from 'fromStr' to 'toStr'
+    String[] moves = buildMoves(fromStr, toStr);
+    int count = 0;
+    boolean moved = false;
+    while (count < moves.length && !moved) {
+      try {
+        m = Move.parse(moves[count]);
+
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
+      moved = b.move(m);
+      count++;
+    }
+    updateBoard();
+    if (aiGame && b.getTurnNumber() % 2 == 1) {
+      cpu.playTurn(b);
+      updateBoard();
+    }
+  }
+
   // Updates the board after a move is sent with the current board state
   @FXML
   protected void updateBoard() {
@@ -288,19 +279,17 @@ public class ChessController implements Initializable {
       pvpButton.setVisible(true);
       pveButton.setDisable(false);
       pveButton.setVisible(true);
-
-      // restart();
     }
   }
 
-  // Updates the move history of each player
+  /*  // Updates the move history of each player
   public void updateHistory(String move, char rank, char file) {
     if (b.getSquare(file, rank).getColor() == Color.BLACK) {
       bHistory.setText(bHistory.getText() + move + "\n");
     } else {
       wHistory.setText(wHistory.getText() + move + "\n");
     }
-  }
+  }*/
 
   // Builds each variation of a move notation (checkmate, check, capture, plane move)
   public String[] buildMoves(String from, String to) {
@@ -316,12 +305,12 @@ public class ChessController implements Initializable {
   public void gameModeSelect(ActionEvent event) {
     if (event.getSource() == pvpButton) {
       winText.setText("   PVP Game");
+      aiGame = false;
     }
     if (event.getSource() == pveButton) {
       winText.setText("   PvAI Game");
       aiGame = true;
     }
-
     pvpButton.setDisable(true);
     pvpButton.setVisible(false);
     pveButton.setDisable(true);
@@ -339,15 +328,11 @@ public class ChessController implements Initializable {
 
     initURL = location;
     initResource = resources;
+    imageArraySetup();
     b = new Board();
     if (aiGame) {
       cpu = new AiFacade(b);
     }
-
-    winText.setText("");
-    wHistory.setText("");
-    bHistory.setText("");
-    imageArraySetup();
     updateBoard();
   }
 }
