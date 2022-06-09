@@ -16,14 +16,13 @@ public class AiFacade {
     this.moveGen = new MoveGen(b);
   }
 
-  public String playTurn(Board newB) throws ParseException {
+  public void playTurn(Board newB) throws ParseException {
     if (newB.isGameOver()) {
-      return null;
+      return;
     }
 
     ArrayList<BasePiece> pieces = ai.getPieces();
     ArrayList<ArrayList<Move>> allMoves = moveGen.genAllMoves(pieces);
     newB.move(ai.bestMove(allMoves));
-    return ai.bestMove(allMoves).toString();
   }
 }
