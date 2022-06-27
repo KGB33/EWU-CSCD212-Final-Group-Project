@@ -36,6 +36,18 @@ java -jar $JAR_FILE
 java -jar $JAR_FILE cli
 ```
 
+## Command Line Options
+
+**Usage**
+
+```console
+$ java -jar $JAR_FILE [ARG...]
+```
+
+**Arguments**
+  - `cli` -- If present, launches the CLI instead of the GUI.
+  - `two-player` -- If present, enables two player mode, i.e. no AI.
+
 
 # Project Summary
 
